@@ -13,6 +13,7 @@ class Teacher(models.Model):
 class Department(models.Model):
     depid=models.CharField(max_length=15,primary_key=True)
     depname=models.CharField(max_length=10,default=None)
+    HODnanme=models.CharField(max_length=15,default=None)
 
 class Subject(models.Model):
     subid=models.CharField(max_length=15,primary_key=True)
