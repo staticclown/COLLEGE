@@ -6,9 +6,11 @@ class Department(models.Model):
     HODname=models.CharField(max_length=25,default=None)
 
 class Subject(models.Model):
-    subid=models.CharField(max_length=15,primary_key=True)
-    subname=models.CharField(max_length=15)
+    subid=models.CharField(max_length=25,primary_key=True)
+    subname=models.CharField(max_length=25)
     sem=models.CharField(max_length=10)
+    depid=models.ForeignKey(Department, on_delete=models.CASCADE,default='D0001') 
+
 class Teacher(models.Model):
     tname=models.CharField(max_length=15)
     tmail=models.CharField(max_length=35,default=None)
