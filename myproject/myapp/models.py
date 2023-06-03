@@ -20,3 +20,7 @@ class Teacher(models.Model):
     password=models.CharField(max_length=10)
     year=models.DateField()
     depid=models.ForeignKey(Department, on_delete=models.CASCADE,default='D0001') 
+
+class Login(models.Model):
+    pid=models.CharField(max_length=20)
+    password=models.CharField(max_length=10)
