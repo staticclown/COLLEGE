@@ -20,19 +20,6 @@ class LoginView(generics.ListCreateAPIView):
 class TeacherDeletion(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = Teacherserializer
     queryset = Teacher.objects.all()
-
-    # Permission_classes = [IsAuthenticated]
-    # def get_permissions(self):
-    #     permission_classes = []
-    #     if self.request.method != 'GET':
-    #         permission_classes = [IsAuthenticated]
-
-    #     return [permission() for permission in permission_classes]
-    # def get(self, request, *args, **kwargs):
-    #     return HttpResponse('new response')
-
-def fun1(request,pk):
-    obj=Teacher.objects.get(pk)
-    if(request.method=='POST'):
-        obj.delete()
-
+class TeacherUpdation(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = Teacherserializer
+    queryset = Teacher.objects.all()
