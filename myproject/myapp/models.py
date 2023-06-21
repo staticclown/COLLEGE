@@ -9,6 +9,7 @@ class Subject(models.Model):
     subid=models.CharField(max_length=25,primary_key=True)
     subname=models.CharField(max_length=25)
     sem=models.CharField(max_length=10)
+    year=models.CharField(max_length=10,default='2022')
     depid=models.ForeignKey(Department, on_delete=models.CASCADE,default='D0001') 
 
 class Teacher(models.Model):
@@ -20,6 +21,7 @@ class Teacher(models.Model):
     password=models.CharField(max_length=10)
     year=models.DateField()
     depid=models.ForeignKey(Department, on_delete=models.CASCADE,default='D0001') 
+    pos=models.IntegerField(default=0)
 
 class Login(models.Model):
     pid=models.CharField(max_length=20)
