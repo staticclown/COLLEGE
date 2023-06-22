@@ -23,6 +23,29 @@ class Teacher(models.Model):
     depid=models.ForeignKey(Department, on_delete=models.CASCADE,default='D0001') 
     pos=models.IntegerField(default=0)
 
-class Login(models.Model):
-    pid=models.CharField(max_length=20)
+class AdminLogin(models.Model):
+    aid=models.CharField(max_length=20,primary_key=True)
     password=models.CharField(max_length=10)
+
+class TeacherLogin(models.Model):
+    Tid=models.CharField(max_length=20)
+    password=models.CharField(max_length=20)
+
+class TeacherSelection(models.Model):
+    tid=models.ForeignKey(Teacher, on_delete=models.CASCADE) 
+    sub1=models.CharField(max_length=10) 
+    sub2=models.CharField(max_length=10)
+    sub3=models.CharField(max_length=10)
+    sub4=models.CharField(max_length=10)
+    count=models.IntegerField()
+
+class ClassDivisions(models.Model):
+    classname=models.CharField(max_length=20,primary_key=True)
+    subject=models.ForeignKey(Subject,on_delete=models.CASCADE)
+    depid=models.ForeignKey(Department,on_delete=models.CASCADE)
+    alloc=models.CharField(max_length=10)
+    exp=models.IntegerField()
+
+
+
+

@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from .models import Teacher,Subject,Login
-
+from .models import Teacher,Subject,AdminLogin,TeacherLogin
+from .models import TeacherSelection,ClassDivisions
 class Teacherserializer(serializers.ModelSerializer):
     class Meta:
         model=Teacher
@@ -11,7 +11,24 @@ class Subjectserializer(serializers.ModelSerializer):
     class Meta:
         model=Subject
         fields=['subid','subname','sem','depid']
-class Loginserializer(serializers.ModelSerializer):
+class AdminLoginserializer(serializers.ModelSerializer):
     class Meta:
-        model=Login
+        model=AdminLogin
         fields=['pid','password']     
+
+class TeacherLoginserializer(serializers.ModelSerializer):
+    class Meta:
+        model=TeacherLogin
+        fields=['Tid','password'] 
+
+class TeacherSelectionserializer(serializers.ModelSerializer):
+    class Meta:
+        model=TeacherSelection
+        fields=['tid','sub1','sub2','sub3','sub4','count'] 
+
+
+class  ClassDivisionsserializer(serializers.ModelSerializer):
+     class Meta:
+        model=ClassDivisions
+        fields=['classname','subject','depid','alloc','exp'] 
+
