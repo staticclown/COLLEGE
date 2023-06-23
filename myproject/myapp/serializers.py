@@ -14,7 +14,7 @@ class Subjectserializer(serializers.ModelSerializer):
 class AdminLoginserializer(serializers.ModelSerializer):
     class Meta:
         model=AdminLogin
-        fields=['pid','password']     
+        fields=['aid','password']     
 
 class TeacherLoginserializer(serializers.ModelSerializer):
     class Meta:
