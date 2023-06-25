@@ -51,6 +51,10 @@ class TeacherUpdation(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = Teacherserializer
     queryset = Teacher.objects.all()
 
+class SubjectUpdation(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = Subjectserializer
+    queryset = Subject.objects.all()
+
 class TeacherSelectionview(generics.ListCreateAPIView):
     queryset = TeacherSelection.objects.all()
     serializer_class =TeacherSelectionserializer

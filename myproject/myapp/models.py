@@ -4,6 +4,7 @@ class Department(models.Model):
     depid=models.CharField(max_length=15,primary_key=True)
     depname=models.CharField(max_length=10,default=None)
     HODname=models.CharField(max_length=25,default=None)
+    division=models.IntegerField(default=0)
 
 class Subject(models.Model):
     subid=models.CharField(max_length=25,primary_key=True)
@@ -11,6 +12,10 @@ class Subject(models.Model):
     sem=models.CharField(max_length=10)
     year=models.CharField(max_length=10,default='2022')
     depid=models.ForeignKey(Department, on_delete=models.CASCADE,default='D0001') 
+    subtype=models.CharField(max_length=5,default='T')
+    
+   
+
 
 class Teacher(models.Model):
     tname=models.CharField(max_length=15)
