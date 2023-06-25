@@ -1,11 +1,17 @@
 from rest_framework import serializers
 from .models import Teacher,Subject,AdminLogin,TeacherLogin
-from .models import TeacherSelection,ClassDivisions
+from .models import TeacherSelection,ClassDivisions,Department
 class Teacherserializer(serializers.ModelSerializer):
     class Meta:
         model=Teacher
         fields=['tname','tmail','gender','tid','password','year','depid','pos']
 
+class Departmentserializer(serializers.ModelSerializer):
+
+    class Meta:
+        model=Department
+        fields=['depid','depname','HODname','division']
+        
 
 class Subjectserializer(serializers.ModelSerializer):
     class Meta:

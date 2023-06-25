@@ -3,9 +3,9 @@ from django.shortcuts import render
 # Create your views here.
 from django.http import HttpResponse,QueryDict
 from rest_framework import generics
-from .models import Teacher,Subject,AdminLogin,TeacherLogin,TeacherSelection,ClassDivisions
+from .models import Teacher,Subject,AdminLogin,TeacherLogin,TeacherSelection,ClassDivisions,Department
 from .serializers import Teacherserializer,Subjectserializer,AdminLoginserializer,TeacherLoginserializer
-from .serializers import TeacherSelectionserializer,ClassDivisionsserializer 
+from .serializers import TeacherSelectionserializer,ClassDivisionsserializer ,Departmentserializer
 from rest_framework.response import Response
 #from rest_framework import APIView
 from rest_framework import status
@@ -19,6 +19,10 @@ class TeacherView(generics.ListCreateAPIView):
 class SubjectView(generics.ListCreateAPIView):
     queryset = Subject.objects.all()
     serializer_class =Subjectserializer
+
+class DepartmentView(generics.ListCreateAPIView):
+    queryset = Department.objects.all()
+    serializer_class =Departmentserializer
 
 class AdminLoginView(generics.CreateAPIView):
     serializer_class =AdminLoginserializer
