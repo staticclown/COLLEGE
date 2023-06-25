@@ -4,13 +4,13 @@ from .models import TeacherSelection,ClassDivisions
 class Teacherserializer(serializers.ModelSerializer):
     class Meta:
         model=Teacher
-        fields=['tname','tmail','gender','tid','password','year','depid']
+        fields=['tname','tmail','gender','tid','password','year','depid','pos']
 
 
 class Subjectserializer(serializers.ModelSerializer):
     class Meta:
         model=Subject
-        fields=['subid','subname','sem','depid']
+        fields=['subid','subname','sem','depid','subtype']
 class AdminLoginserializer(serializers.ModelSerializer):
     class Meta:
         model=AdminLogin

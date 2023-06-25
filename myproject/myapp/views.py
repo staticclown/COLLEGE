@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+
 # Create your views here.
-from django.http import HttpResponse
+from django.http import HttpResponse,QueryDict
 from rest_framework import generics
 from .models import Teacher,Subject,AdminLogin,TeacherLogin,TeacherSelection,ClassDivisions
 from .serializers import Teacherserializer,Subjectserializer,AdminLoginserializer,TeacherLoginserializer
@@ -9,6 +9,9 @@ from .serializers import TeacherSelectionserializer,ClassDivisionsserializer
 from rest_framework.response import Response
 #from rest_framework import APIView
 from rest_framework import status
+from urllib.parse import urlparse
+from urllib.parse import parse_qsl
+import json
 class TeacherView(generics.ListCreateAPIView):
     queryset = Teacher.objects.all()
     serializer_class = Teacherserializer
@@ -19,10 +22,12 @@ class SubjectView(generics.ListCreateAPIView):
 
 class AdminLoginView(generics.CreateAPIView):
     serializer_class =AdminLoginserializer
+    
     def post(self, request, *args, **kwargs):
-        title = request.POST.get('aid')
-        word=request.POST.get('password')
-        print(word)
+        #title = request.POST.get('aid')
+        requestbody=dict(request.data)
+        
+        word=requestbody['password']
         if(word=='1234'):
             return Response('SUCCESS',status=status.HTTP_200_OK)
         else:
@@ -34,11 +39,13 @@ class AdminLoginView(generics.CreateAPIView):
 class TeacherLoginView(generics.CreateAPIView):
     serializer_class =TeacherLoginserializer
     def post(self, request, *args, **kwargs):
-        title = request.POST.get('Tid')
-        word=request.POST.get('password')
+        requestbody=dict(request.data)
+        title =requestbody['Tid']
+        word=requestbody['password']
         obj=Teacher.objects.get(tid=title)
         a1=obj.password
         a2=obj.tid
+      
         if(word==a1):
             return Response('SUCCESS',status=status.HTTP_200_OK)
         else:
