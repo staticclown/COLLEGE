@@ -5,7 +5,7 @@ from django.http import HttpResponse,QueryDict
 from rest_framework import generics
 from .models import Teacher,Subject,AdminLogin,TeacherLogin,TeacherSelection,ClassDivisions,Department
 from .serializers import Teacherserializer,Subjectserializer,AdminLoginserializer,TeacherLoginserializer
-from .serializers import TeacherSelectionserializer,ClassDivisionsserializer ,Departmentserializer
+from .serializers import TeacherSelectionserializer,ClassDivisionsserializer ,Departmentserializer,Phaseserializer
 from rest_framework.response import Response
 #from rest_framework import APIView
 from rest_framework import status
@@ -73,4 +73,11 @@ class TeacherSelectionview(generics.ListCreateAPIView):
 class ClassDivisionsview(generics.ListCreateAPIView):
     queryset = ClassDivisions.objects.all()
     serializer_class =ClassDivisionsserializer
+
+
+class PhaseProcess(generics.CreateAPIView):
+    serializer_class =Phaseserializer
+    def post(self, request, *args, **kwargs):
+        requestbody=dict(request.data)
+        
 

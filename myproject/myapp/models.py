@@ -43,13 +43,25 @@ class TeacherSelection(models.Model):
     sub3=models.CharField(max_length=10)
     sub4=models.CharField(max_length=10)
     count=models.IntegerField()
+    selectionid=models.CharField(max_length=20,primary_key=True)
+
 
 class ClassDivisions(models.Model):
     classname=models.CharField(max_length=20,primary_key=True)
     subject=models.ForeignKey(Subject,on_delete=models.CASCADE)
     depid=models.ForeignKey(Department,on_delete=models.CASCADE)
-    alloc=models.CharField(max_length=10)
+    classalloc=models.CharField(max_length=10)
     exp=models.IntegerField()
+
+class Phase(models.Model):
+    no=models.IntegerField()
+    tid=models.ForeignKey(Teacher,on_delete=models.CASCADE)
+    alloc=models.IntegerField(default=0)
+    status=models.CharField(max_length=20,default='ON')
+    sub1=models.CharField(max_length=20,default=None)
+    sub2=models.CharField(max_length=20,default=None)
+    lab1=models.CharField(max_length=20,default=None)
+    lab2=models.CharField(max_length=20,default=None)
 
 
 
