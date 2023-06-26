@@ -58,6 +58,7 @@ class Phase(models.Model):
     tid=models.ForeignKey(Teacher,on_delete=models.CASCADE)
     alloc=models.IntegerField(default=0)
     status=models.CharField(max_length=20,default='ON')
+    exp=models.IntegerField()
     sub1=models.CharField(max_length=20,default=None)
     sub2=models.CharField(max_length=20,default=None)
     lab1=models.CharField(max_length=20,default=None)

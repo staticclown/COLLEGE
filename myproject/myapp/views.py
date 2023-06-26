@@ -3,7 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.http import HttpResponse,QueryDict
 from rest_framework import generics
-from .models import Teacher,Subject,AdminLogin,TeacherLogin,TeacherSelection,ClassDivisions,Department
+from .models import Teacher,Subject,AdminLogin,TeacherLogin,TeacherSelection,ClassDivisions,Department,Phase
 from .serializers import Teacherserializer,Subjectserializer,AdminLoginserializer,TeacherLoginserializer
 from .serializers import TeacherSelectionserializer,ClassDivisionsserializer ,Departmentserializer,Phaseserializer
 from rest_framework.response import Response
@@ -12,6 +12,7 @@ from rest_framework import status
 from urllib.parse import urlparse
 from urllib.parse import parse_qsl
 import json
+
 class TeacherView(generics.ListCreateAPIView):
     queryset = Teacher.objects.all()
     serializer_class = Teacherserializer
@@ -28,7 +29,6 @@ class AdminLoginView(generics.CreateAPIView):
     serializer_class =AdminLoginserializer
     
     def post(self, request, *args, **kwargs):
-        #title = request.POST.get('aid')
         requestbody=dict(request.data)
         
         word=requestbody['password']
@@ -36,10 +36,6 @@ class AdminLoginView(generics.CreateAPIView):
             return Response('SUCCESS',status=status.HTTP_200_OK)
         else:
             return Response('NO',status=status.HTTP_200_OK)
-
-
-
-
 class TeacherLoginView(generics.CreateAPIView):
     serializer_class =TeacherLoginserializer
     def post(self, request, *args, **kwargs):
@@ -75,9 +71,58 @@ class ClassDivisionsview(generics.ListCreateAPIView):
     serializer_class =ClassDivisionsserializer
 
 
-class PhaseProcess(generics.CreateAPIView):
-    serializer_class =Phaseserializer
-    def post(self, request, *args, **kwargs):
-        requestbody=dict(request.data)
-        
+def phase1(request):
+    p=Teacher.objects.all()
+    arrtid=[]
+    arrexp=[]
+    for i in p:
+        arrtid.append(i.tid)
+        val=2023-int(i.year.strftime('%Y'))
+        arrexp.append(val)
+    count=len(arrexp)
+    for i in range(count-1):
+        for j in range(count-i-1):
+            if arrexp[j]>arrexp[j+1]:
+                arrexp[j],arrexp[j+1]=arrexp[j+1],arrexp[j]
+                arrtid[j],arrtid[j+1]=arrtid[j+1],arrtid[j]
+
+    count=count//3
+    for k in range(count):
+        val=arrtid[k]
+        obj=Teacher.objects.get(tid=val)
+        new_entry=Phase(no=1,tid=obj,alloc=0,status='ON',exp=arrexp[k],sub1='',sub2='',lab1='',lab2='')
+        new_entry.save()
+
+    
+    
+    return HttpResponse('OK',status=status.HTTP_200_OK)
+            
+def phase2(request):
+    p=Teacher.objects.all()
+    arrtid=[]
+    arrexp=[]
+    for i in p:
+        arrtid.append(i.tid)
+        val=2023-int(i.year.strftime('%Y'))
+        arrexp.append(val)
+    count=len(arrexp)
+    for i in range(count-1):
+        for j in range(count-i-1):
+            if arrexp[j]>arrexp[j+1]:
+                arrexp[j],arrexp[j+1]=arrexp[j+1],arrexp[j]
+                arrtid[j],arrtid[j+1]=arrtid[j+1],arrtid[j]
+
+    c=Phase.objects.all()
+    count=len(p)-len(c)
+    k=len(c)-1
+    print(k,count)
+    while k<count:
+        val=arrtid[k]
+        obj=Teacher.objects.get(tid=val)
+        new_entry=Phase(no=2,tid=obj,alloc=0,status='ON',exp=arrexp[k],sub1='',sub2='',lab1='',lab2='')
+        new_entry.save()
+        k=k+1
+    return HttpResponse('OK',status=status.HTTP_200_OK)
+
+
 
