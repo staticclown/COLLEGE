@@ -78,15 +78,14 @@ class split(generics.CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         requestbody=dict(request.data)
+        print(requestbody)
         sid=requestbody['subid']
         subname=requestbody['subname']
         sem=requestbody['sem']
         did=requestbody['depid']
         subtype=requestbody['subtype']
-        subtype=subtype[0]
-
-        user=Department.objects.get(depid=did[0])
-        sub=Subject.objects.get(subid=sid[0])
+        user=Department.objects.get(depid=did)
+        sub=Subject.objects.get(subid=sid)
         i=0
         count=user.division
         print(count)
@@ -94,15 +93,15 @@ class split(generics.CreateAPIView):
         
         while i<count:
             if subtype=='T':
-                new_entry=ClassDivisions(classname=name+'-'+chr(i+ord('A'))+'-'+subname[0],subject=sub,depid=user,classalloc=0,exp=0,
-                sem=sem[0],subtype=subtype)
+                new_entry=ClassDivisions(classname=name+'-'+chr(i+ord('A'))+'-'+subname,subject=sub,depid=user,classalloc=0,exp=0,
+                sem=sem,subtype=subtype)
                 new_entry.save()
                
             elif subtype=='L':
                 k=0
                 while k<3:
-                    new_entry=ClassDivisions(classname=name+'-'+chr(i+ord('A'))+'-'+subname[0],subject=sub,depid=user,classalloc=0,exp=0,
-                    sem=sem[0],subtype=subtype)
+                    new_entry=ClassDivisions(classname=name+'-'+chr(i+ord('A'))+'-'+subname,subject=sub,depid=user,classalloc=0,exp=0,
+                    sem=sem,subtype=subtype)
                     new_entry.save()
                     k=k+1
             i=i+1
