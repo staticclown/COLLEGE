@@ -63,7 +63,10 @@ class Phase(models.Model):
     sub2=models.CharField(max_length=20,default=None)
     lab1=models.CharField(max_length=20,default=None)
     lab2=models.CharField(max_length=20,default=None)
+    academicyear=models.CharField(max_length=20,default='2023')
+    mail=models.CharField(max_length=20)
 
-
-
+class phaseno(models.Model):
+    no=models.CharField(max_length=20,primary_key=True)
+    active=models.CharField(max_length=20)
 
