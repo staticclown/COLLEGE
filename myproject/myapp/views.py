@@ -14,6 +14,7 @@ from rest_framework import status
 from urllib.parse import urlparse
 from urllib.parse import parse_qsl
 import json
+import random
 
 class TeacherView(generics.ListCreateAPIView):
     queryset = Teacher.objects.all()
@@ -88,19 +89,25 @@ class split(generics.CreateAPIView):
         sub=Subject.objects.get(subid=sid)
         i=0
         count=user.division
-        print(count)
+      
         name=user.depname
         
         while i<count:
             if subtype=='T':
-                new_entry=ClassDivisions(classname=name+'-'+chr(i+ord('A'))+'-'+subname,subject=sub,depid=user,classalloc=0,exp=0,
+                no=random.randint(10000,99999)
+                no='C'+str(no)
+                print(no)
+                new_entry=ClassDivisions(classid=no,classname=name+'-'+chr(i+ord('A')),subject=sub,depid=user,classalloc=0,exp=0,
                 sem=sem,subtype=subtype)
                 new_entry.save()
                
             elif subtype=='L':
                 k=0
                 while k<3:
-                    new_entry=ClassDivisions(classname=name+'-'+chr(i+ord('A'))+'-'+subname,subject=sub,depid=user,classalloc=0,exp=0,
+                    no=random.randint(10000,99999)
+                    no='C'+str(no)
+                    print(no)
+                    new_entry=ClassDivisions(classid=no,classname=name+'-'+chr(i+ord('A')),subject=sub,depid=user,classalloc=0,exp=0,
                     sem=sem,subtype=subtype)
                     new_entry.save()
                     k=k+1
