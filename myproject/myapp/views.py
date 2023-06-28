@@ -6,8 +6,8 @@ from rest_framework import generics
 from .models import Teacher,Subject,AdminLogin,TeacherLogin,TeacherSelection,ClassDivisions
 from .models import Department,Phase,phaseno
 from .serializers import Teacherserializer,Subjectserializer,AdminLoginserializer,TeacherLoginserializer
-from .serializers import TeacherSelectionserializer,ClassDivisionsserializer ,Departmentserializer,Phaseserializer
-from .serializers import Phasenoserializer
+from .serializers import TeacherSelectionserializer,Departmentserializer,Phaseserializer
+from .serializers import Phasenoserializer,ClassDivisionsserializer
 from rest_framework.response import Response
 #from rest_framework import APIView
 from rest_framework import status
@@ -72,6 +72,42 @@ class ClassDivisionsview(generics.ListCreateAPIView):
     queryset = ClassDivisions.objects.all()
     serializer_class =ClassDivisionsserializer
 
+class split(generics.CreateAPIView):
+    #queryset = Subject.objects.all()
+    serializer_class =Subjectserializer
+
+    def post(self, request, *args, **kwargs):
+        requestbody=dict(request.data)
+        sid=requestbody['subid']
+        subname=requestbody['subname']
+        sem=requestbody['sem']
+        did=requestbody['depid']
+        subtype=requestbody['subtype']
+        subtype=subtype[0]
+
+        user=Department.objects.get(depid=did[0])
+        sub=Subject.objects.get(subid=sid[0])
+        i=0
+        count=user.division
+        print(count)
+        name=user.depname
+        
+        while i<count:
+            if subtype=='T':
+                new_entry=ClassDivisions(classname=name+'-'+chr(i+ord('A'))+'-'+subname[0],subject=sub,depid=user,classalloc=0,exp=0,
+                sem=sem[0],subtype=subtype)
+                new_entry.save()
+               
+            elif subtype=='L':
+                k=0
+                while k<3:
+                    new_entry=ClassDivisions(classname=name+'-'+chr(i+ord('A'))+'-'+subname[0],subject=sub,depid=user,classalloc=0,exp=0,
+                    sem=sem[0],subtype=subtype)
+                    new_entry.save()
+                    k=k+1
+            i=i+1
+            
+        return HttpResponse('OK',status=status.HTTP_200_OK)
 class phase1view(generics.ListCreateAPIView):
     serializer_class = Phasenoserializer
     queryset=phaseno.objects.all()

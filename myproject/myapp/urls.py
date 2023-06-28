@@ -15,5 +15,6 @@ urlpatterns = [
     path('subjectupdation/<str:pk>',views.SubjectUpdation.as_view()),
     path('phase1',views.phase1view.as_view()),
     path('phase2',views.phase2view.as_view()),
-    path('phasestatus',views.phasestatusview.as_view())
+    path('phasestatus',views.phasestatusview.as_view()),
+    path('split',views.split.as_view()),
 ]

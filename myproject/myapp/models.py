@@ -47,12 +47,13 @@ class TeacherSelection(models.Model):
 
 
 class ClassDivisions(models.Model):
-    classname=models.CharField(max_length=20,primary_key=True)
+    classname=models.CharField(max_length=20)
     subject=models.ForeignKey(Subject,on_delete=models.CASCADE)
     depid=models.ForeignKey(Department,on_delete=models.CASCADE)
     classalloc=models.CharField(max_length=10)
     exp=models.IntegerField()
     sem=models.CharField(max_length=20)
+    subtype=models.CharField(max_length=20)
 
 class Phase(models.Model):
     no=models.IntegerField()
