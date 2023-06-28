@@ -36,7 +36,7 @@ class TeacherSelectionserializer(serializers.ModelSerializer):
 class  ClassDivisionsserializer(serializers.ModelSerializer):
      class Meta:
         model=ClassDivisions
-        fields=['classname','subject','depid','classalloc','exp'] 
+        fields=['classname','subject','depid','classalloc','exp','sem'] 
 
 
 class Phaseserializer(serializers.ModelSerializer):

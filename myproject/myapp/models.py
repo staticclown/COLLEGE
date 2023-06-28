@@ -52,6 +52,7 @@ class ClassDivisions(models.Model):
     depid=models.ForeignKey(Department,on_delete=models.CASCADE)
     classalloc=models.CharField(max_length=10)
     exp=models.IntegerField()
+    sem=models.CharField(max_length=20)
 
 class Phase(models.Model):
     no=models.IntegerField()
