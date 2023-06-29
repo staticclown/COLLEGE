@@ -119,10 +119,14 @@ class phase1view(generics.ListCreateAPIView):
     queryset=phaseno.objects.all()
     def post(self, request, *args, **kwargs):
         requestbody=dict(request.data)
+        Phase.objects.all().delete()
         title =requestbody['no']
         a=requestbody['active']
-        new_start=phaseno(no=title[0],active=a[0])
-
+        
+        new_start=phaseno(no=title,active=a)
+        new_start.save()
+        
+        phaseno.objects.all().delete()
 
         p=Teacher.objects.all()
         arrtid=[]
@@ -145,7 +149,7 @@ class phase1view(generics.ListCreateAPIView):
         for k in range(count):
             val=arrtid[k]
             obj=Teacher.objects.get(tid=val)
-            new_entry=Phase(no=1,tid=obj,alloc=0,status='ON',exp=arrexp[k],sub1='',sub2='',lab1='',lab2='',academicyear=title[0],mail=arrmail[k])
+            new_entry=Phase(no=1,tid=obj,alloc=0,status='ON',exp=arrexp[k],sub1='',sub2='',lab1='',lab2='',academicyear=title,mail=arrmail[k])
             new_entry.save() 
         return HttpResponse('OK',status=status.HTTP_200_OK)
 
@@ -155,7 +159,12 @@ class phase2view(generics.ListCreateAPIView):
     queryset =phaseno.objects.all()
     def post(self, request, *args, **kwargs):
         requestbody=dict(request.data)
+        phaseno.objects.all().delete()
+       
         title =requestbody['no']
+        a=requestbody['active']
+        new_start=phaseno(no=title,active=a)
+        new_start.save()
         p=Teacher.objects.all()
         arrtid=[]
         arrexp=[]
@@ -165,7 +174,7 @@ class phase2view(generics.ListCreateAPIView):
             val=2023-int(i.year.strftime('%Y'))
             arrexp.append(val)
             arrmail.append(i.tmail)
-        count=len(arrexp)
+        count=len(arrexp)-1
         for i in range(count-1):
             for j in range(count-i-1):
                 if arrexp[j]>arrexp[j+1]:
@@ -174,13 +183,17 @@ class phase2view(generics.ListCreateAPIView):
                     arrmail[j],arrmail[j+1]=arrmail[j+1],arrmail[j]
 
         c=Phase.objects.all()
+       
         count=len(p)-len(c)
-        k=len(c)-1
+        k=len(c)
+        Phase.objects.all().delete()
         print(k,count)
-        while k<count:
+        print(arrtid)
+        
+        while k<=count:
             val=arrtid[k]
             obj=Teacher.objects.get(tid=val)
-            new_entry=Phase(no=2,tid=obj,alloc=0,status='ON',exp=arrexp[k],sub1='',sub2='',lab1='',lab2='',academicyear=title[0],mail=arrmail[k])
+            new_entry=Phase(no=2,tid=obj,alloc=0,status='ON',exp=arrexp[k],sub1='',sub2='',lab1='',lab2='',academicyear=title,mail=arrmail[k])
             new_entry.save()
             k=k+1
         return HttpResponse('OK',status=status.HTTP_200_OK)
