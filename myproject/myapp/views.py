@@ -48,6 +48,11 @@ class AdminLoginView(generics.CreateAPIView):
 class Phaseview(generics.ListCreateAPIView):
     queryset = Phase.objects.all()
     serializer_class =Phaseserializer
+
+class Phaseupdate(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Phase.objects.all()
+    serializer_class =Phaseserializer
+    
 class TeacherLoginView(generics.CreateAPIView):
     serializer_class =TeacherLoginserializer
     def post(self, request, *args, **kwargs):
@@ -156,8 +161,10 @@ class phase1view(generics.ListCreateAPIView):
         count=count//3
         for k in range(count):
             val=arrtid[k]
+            no=random.randint(10000,99999)
+            no='P'+str(no)
             obj=Teacher.objects.get(tid=val)
-            new_entry=Phase(no=1,tid=obj,alloc=0,status='ON',exp=arrexp[k],sub1='',sub2='',sub3='',sub4='',sub5='',
+            new_entry=Phase(no=1,pid=no,tid=obj,alloc=0,status='ON',exp=arrexp[k],sub1='',sub2='',sub3='',sub4='',sub5='',
             sub6='',academicyear=title,mail=arrmail[k])
             new_entry.save() 
         return HttpResponse('OK',status=status.HTTP_200_OK)
@@ -202,8 +209,10 @@ class phase2view(generics.ListCreateAPIView):
         
         while k<=count:
             val=arrtid[k]
+            no=random.randint(10000,99999)
+            no='P'+str(no)
             obj=Teacher.objects.get(tid=val)
-            new_entry=Phase(no=2,tid=obj,alloc=0,status='ON',exp=arrexp[k],sub1='',sub2='',sub3='',sub4=''
+            new_entry=Phase(no=2,pid=no,tid=obj,alloc=0,status='ON',exp=arrexp[k],sub1='',sub2='',sub3='',sub4=''
             ,sub5='',sub6='',academicyear=title,mail=arrmail[k])
             new_entry.save()
             k=k+1

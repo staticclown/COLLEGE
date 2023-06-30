@@ -59,9 +59,10 @@ class ClassDivisions(models.Model):
 
 class Phase(models.Model):
     no=models.IntegerField()#no of subject selected
+    pid=models.CharField(max_length=20,primary_key=True)
     tid=models.ForeignKey(Teacher,on_delete=models.CASCADE)
     alloc=models.IntegerField(default=0)
-    status=models.CharField(max_length=20,default='ON')#resolving clash
+    status=models.CharField(max_length=20,default='ON')#selection done
     exp=models.IntegerField()
     sub1=models.CharField(max_length=20)
     sub2=models.CharField(max_length=20)

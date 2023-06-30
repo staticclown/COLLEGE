@@ -44,6 +44,8 @@ class Phaseserializer(serializers.ModelSerializer):
         model=Phase
         fields=['no','tid','alloc','status','sub1','sub2','sub3','sub4','sub5','sub6','academicyear','mail']
 
+
+
 class Phasenoserializer(serializers.ModelSerializer):
     class Meta:
         model=phaseno
