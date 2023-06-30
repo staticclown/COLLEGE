@@ -13,6 +13,7 @@ urlpatterns = [
     path('teacherdeletion/<str:pk>',views.TeacherDeletion.as_view()),
     path('teacherupdation/<str:pk>',views.TeacherUpdation.as_view()),
     path('subjectupdation/<str:pk>',views.SubjectUpdation.as_view()),
+    path('departmentupdation/<str:pk>',views.DepartmentUpdation.as_view()),
     path('phase1',views.phase1view.as_view()),
     path('phase2',views.phase2view.as_view()),
     path('phasestatus',views.phasestatusview.as_view()),

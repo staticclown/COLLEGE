@@ -58,16 +58,16 @@ class ClassDivisions(models.Model):
 
 
 class Phase(models.Model):
-    no=models.IntegerField()
+    no=models.IntegerField()#no of subject selected
     tid=models.ForeignKey(Teacher,on_delete=models.CASCADE)
     alloc=models.IntegerField(default=0)
-    status=models.CharField(max_length=20,default='ON')
+    status=models.CharField(max_length=20,default='ON')#resolving clash
     exp=models.IntegerField()
     sub1=models.CharField(max_length=20,default=None)
     sub2=models.CharField(max_length=20,default=None)
     lab1=models.CharField(max_length=20,default=None)
     lab2=models.CharField(max_length=20,default=None)
-    academicyear=models.CharField(max_length=20,default='2023')
+    academicyear=models.CharField(max_length=20,default='2023')#phase year
     mail=models.CharField(max_length=20)
 
 class phaseno(models.Model):

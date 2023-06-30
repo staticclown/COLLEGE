@@ -15,6 +15,7 @@ from urllib.parse import urlparse
 from urllib.parse import parse_qsl
 import json
 import random
+from datetime import date
 
 class TeacherView(generics.ListCreateAPIView):
     queryset = Teacher.objects.all()
@@ -25,6 +26,10 @@ class SubjectView(generics.ListCreateAPIView):
     serializer_class =Subjectserializer
 
 class DepartmentView(generics.ListCreateAPIView):
+    queryset = Department.objects.all()
+    serializer_class =Departmentserializer
+    
+class DepartmentUpdation(generics.RetrieveUpdateDestroyAPIView):
     queryset = Department.objects.all()
     serializer_class =Departmentserializer
 
@@ -120,21 +125,20 @@ class phase1view(generics.ListCreateAPIView):
     def post(self, request, *args, **kwargs):
         requestbody=dict(request.data)
         Phase.objects.all().delete()
+        phaseno.objects.all().delete()
         title =requestbody['no']
         a=requestbody['active']
         
         new_start=phaseno(no=title,active=a)
         new_start.save()
-        
-        phaseno.objects.all().delete()
-
         p=Teacher.objects.all()
         arrtid=[]
         arrexp=[]
         arrmail=[]
         for i in p:
             arrtid.append(i.tid)
-            val=2023-int(i.year.strftime('%Y'))
+            current_year = date.today().year
+            val=current_year-int(i.year.strftime('%Y'))
             arrexp.append(val)
             arrmail.append(i.tmail)
         count=len(arrexp)
@@ -171,7 +175,8 @@ class phase2view(generics.ListCreateAPIView):
         arrmail=[]
         for i in p:
             arrtid.append(i.tid)
-            val=2023-int(i.year.strftime('%Y'))
+            current_year = date.today().year
+            val=current_year-int(i.year.strftime('%Y'))
             arrexp.append(val)
             arrmail.append(i.tmail)
         count=len(arrexp)-1
