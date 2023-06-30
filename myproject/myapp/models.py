@@ -63,10 +63,12 @@ class Phase(models.Model):
     alloc=models.IntegerField(default=0)
     status=models.CharField(max_length=20,default='ON')#resolving clash
     exp=models.IntegerField()
-    sub1=models.CharField(max_length=20,default=None)
-    sub2=models.CharField(max_length=20,default=None)
-    lab1=models.CharField(max_length=20,default=None)
-    lab2=models.CharField(max_length=20,default=None)
+    sub1=models.CharField(max_length=20)
+    sub2=models.CharField(max_length=20)
+    sub3=models.CharField(max_length=20)
+    sub4=models.CharField(max_length=20)
+    sub5=models.CharField(max_length=20)
+    sub6=models.CharField(max_length=20)
     academicyear=models.CharField(max_length=20,default='2023')#phase year
     mail=models.CharField(max_length=20)
 

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Teacher,Subject,Department,AdminLogin,TeacherLogin
-from .models import TeacherSelection,Phase,phaseno,ClassDivisions
+from .models import TeacherSelection,phaseno,ClassDivisions,Phase
 
 admin.site.register(Teacher)
 admin.site.register(Department)

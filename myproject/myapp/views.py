@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse,QueryDict
 from rest_framework import generics
 from .models import Teacher,Subject,AdminLogin,TeacherLogin,TeacherSelection,ClassDivisions
-from .models import Department,Phase,phaseno
+from .models import Department,phaseno,Phase
 from .serializers import Teacherserializer,Subjectserializer,AdminLoginserializer,TeacherLoginserializer
 from .serializers import TeacherSelectionserializer,Departmentserializer,Phaseserializer
 from .serializers import Phasenoserializer,ClassDivisionsserializer
@@ -153,7 +153,8 @@ class phase1view(generics.ListCreateAPIView):
         for k in range(count):
             val=arrtid[k]
             obj=Teacher.objects.get(tid=val)
-            new_entry=Phase(no=1,tid=obj,alloc=0,status='ON',exp=arrexp[k],sub1='',sub2='',lab1='',lab2='',academicyear=title,mail=arrmail[k])
+            new_entry=Phase(no=1,tid=obj,alloc=0,status='ON',exp=arrexp[k],sub1='',sub2='',sub3='',sub4='',sub5='',
+            sub6='',academicyear=title,mail=arrmail[k])
             new_entry.save() 
         return HttpResponse('OK',status=status.HTTP_200_OK)
 
@@ -198,7 +199,8 @@ class phase2view(generics.ListCreateAPIView):
         while k<=count:
             val=arrtid[k]
             obj=Teacher.objects.get(tid=val)
-            new_entry=Phase(no=2,tid=obj,alloc=0,status='ON',exp=arrexp[k],sub1='',sub2='',lab1='',lab2='',academicyear=title,mail=arrmail[k])
+            new_entry=Phase(no=2,tid=obj,alloc=0,status='ON',exp=arrexp[k],sub1='',sub2='',sub3='',sub4=''
+            ,sub5='',sub6='',academicyear=title,mail=arrmail[k])
             new_entry.save()
             k=k+1
         return HttpResponse('OK',status=status.HTTP_200_OK)

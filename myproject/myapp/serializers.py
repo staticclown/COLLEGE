@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Teacher,Subject,AdminLogin,TeacherLogin,ClassDivisions
-from .models import TeacherSelection,Department,Phase,phaseno
+from .models import TeacherSelection,Department,phaseno,Phase
 class Teacherserializer(serializers.ModelSerializer):
     class Meta:
         model=Teacher
