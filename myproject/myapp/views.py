@@ -44,6 +44,10 @@ class AdminLoginView(generics.CreateAPIView):
             return Response('SUCCESS',status=status.HTTP_200_OK)
         else:
             return Response('NO',status=status.HTTP_200_OK)
+
+class Phaseview(generics.ListCreateAPIView):
+    queryset = Phase.objects.all()
+    serializer_class =Phaseserializer
 class TeacherLoginView(generics.CreateAPIView):
     serializer_class =TeacherLoginserializer
     def post(self, request, *args, **kwargs):

@@ -18,4 +18,5 @@ urlpatterns = [
     path('phase2',views.phase2view.as_view()),
     path('phasestatus',views.phasestatusview.as_view()),
     path('split',views.split.as_view()),
+    path('phaseview',views.Phaseview.as_view())
 ]
