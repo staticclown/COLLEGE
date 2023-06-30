@@ -8,7 +8,7 @@ class Department(models.Model):
 
 class Subject(models.Model):
     subid=models.CharField(max_length=25,primary_key=True)
-    subname=models.CharField(max_length=25)
+    subname=models.CharField(max_length=45)
     sem=models.CharField(max_length=10)
     year=models.CharField(max_length=10,default='2022')
     depid=models.ForeignKey(Department, on_delete=models.CASCADE,default='D0001') 
