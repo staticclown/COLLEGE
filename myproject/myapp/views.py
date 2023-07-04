@@ -240,7 +240,6 @@ class subselect(generics.ListCreateAPIView):
         sub4=requestbody['sub4']
         sub5=requestbody['sub5']
         sub6=requestbody['sub6']
-        year=requestbody['academicyear']
         phaseid=Phase.objects.get(tid=tid)
         phaseid.no=count
         phaseid.sub1=sub1
@@ -249,7 +248,11 @@ class subselect(generics.ListCreateAPIView):
         phaseid.sub4=sub4
         phaseid.sub5=sub5
         phaseid.sub6=sub6
-        phaseid.academicyear=year
+        phasenoid=phaseno.objects.all()
+        val=phasenoid[0].no
+        phaseid.academicyear=val
+        
+
         teacherid=Teacher.objects.get(tid=tid)
         phaseid.mail=teacherid.tmail
         phaseid.status="OFF"
