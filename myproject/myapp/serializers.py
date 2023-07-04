@@ -52,3 +52,8 @@ class Phasenoserializer(serializers.ModelSerializer):
         fields=['no','active']
 
 
+
+class Addclassserializer(serializers.ModelSerializer):
+    class Meta:
+        model=Phase
+        fields=['no','tid','sub1','sub2','sub3','sub4','sub5','sub6','academicyear']

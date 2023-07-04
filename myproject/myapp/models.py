@@ -55,6 +55,7 @@ class ClassDivisions(models.Model):
     exp=models.IntegerField()
     sem=models.CharField(max_length=20)
     subtype=models.CharField(max_length=20)
+    
 
 
 class Phase(models.Model):

@@ -7,7 +7,7 @@ from .models import Teacher,Subject,AdminLogin,TeacherLogin,TeacherSelection,Cla
 from .models import Department,phaseno,Phase
 from .serializers import Teacherserializer,Subjectserializer,AdminLoginserializer,TeacherLoginserializer
 from .serializers import TeacherSelectionserializer,Departmentserializer,Phaseserializer
-from .serializers import Phasenoserializer,ClassDivisionsserializer
+from .serializers import Phasenoserializer,ClassDivisionsserializer,Addclassserializer
 from rest_framework.response import Response
 #from rest_framework import APIView
 from rest_framework import status
@@ -28,6 +28,11 @@ class SubjectView(generics.ListCreateAPIView):
 class DepartmentView(generics.ListCreateAPIView):
     queryset = Department.objects.all()
     serializer_class =Departmentserializer
+
+class phaseview(generics.ListCreateAPIView):
+    queryset = Phase.objects.all()
+    serializer_class =Phaseserializer
+
     
 class DepartmentUpdation(generics.RetrieveUpdateDestroyAPIView):
     queryset = Department.objects.all()
@@ -221,4 +226,34 @@ class phase2view(generics.ListCreateAPIView):
 class phasestatusview(generics.ListCreateAPIView):
     queryset = phaseno.objects.all()
     serializer_class =Phasenoserializer
+
+class subselect(generics.ListCreateAPIView):
+    queryset = Phase.objects.all()
+    serializer_class =Addclassserializer
+    def post(self, request, *args, **kwargs):
+        requestbody=dict(request.data)
+        tid =requestbody['tid']
+        count=requestbody['no']
+        sub1=requestbody['sub1']
+        sub2=requestbody['sub2']
+        sub3=requestbody['sub3']
+        sub4=requestbody['sub4']
+        sub5=requestbody['sub5']
+        sub6=requestbody['sub6']
+        year=requestbody['academicyear']
+        phaseid=Phase.objects.get(tid=tid)
+        phaseid.no=count
+        phaseid.sub1=sub1
+        phaseid.sub2=sub2
+        phaseid.sub3=sub3
+        phaseid.sub4=sub4
+        phaseid.sub5=sub5
+        phaseid.sub6=sub6
+        phaseid.academicyear=year
+        teacherid=Teacher.objects.get(tid=tid)
+        phaseid.mail=teacherid.tmail
+        phaseid.status="OFF"
+        phaseid.save()
+
+        return HttpResponse('OK',status=status.HTTP_200_OK)
 
