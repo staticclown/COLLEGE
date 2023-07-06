@@ -364,27 +364,20 @@ class subselect(generics.ListCreateAPIView):
         
         print(subarray)
 
-        for k in subarray:
-            for i,j in k.items():
-                try:
-                    
-                    if sub1==j :
+        def fun_order(sub,i):
+        
                         if(i=='sub1'):
-                            p = Phase.objects.get(sub1=sub1)
+                            p = Phase.objects.get(sub1=sub)
                         elif(i=='sub2'):
-                            p = Phase.objects.get(sub2=sub1)
+                            p = Phase.objects.get(sub2=sub)
                         elif(i=='sub3'):
-                            p = Phase.objects.get(sub3=sub1)
+                            p = Phase.objects.get(sub3=sub)
                         elif(i=='sub4'):
-                            p = Phase.objects.get(sub4=sub1)
+                            p = Phase.objects.get(sub4=sub)
                         elif(i=='sub5'):
-                            p = Phase.objects.get(sub5=sub1)
+                            p = Phase.objects.get(sub5=sub)
                         elif(i=='sub6'):
-                            p = Phase.objects.get(sub6=sub1)
-                        else:
-                            raise Exception('sorry')
-                        
-                        
+                            p = Phase.objects.get(sub6=sub)
 
                         if p.exp < exp :
                             if(i=='sub1'):
@@ -401,223 +394,32 @@ class subselect(generics.ListCreateAPIView):
                                 p.sub6=''
                             print(p.mail)
                             p.status='UPDATE'
-                            classid = ClassDivisions.objects.get(classid=sub1)
+                            classid = ClassDivisions.objects.get(classid=sub)
                             classid.exp = exp
                             classid.save()
                             p.save()
-                            break
-                            
-                except:
-                    print('no')
-                try:
-                    if sub2==j :
-                        print(sub2)
-                        if(i=='sub1'):
-                            p = Phase.objects.get(sub1=sub2)
-                        elif(i=='sub2'):
-                            p = Phase.objects.get(sub2=sub2)
-                        elif(i=='sub3'):
-                            p = Phase.objects.get(sub3=sub2)
-                        elif(i=='sub4'):
-                            p = Phase.objects.get(sub4=sub2)
-                        elif(i=='sub5'):
-                            p = Phase.objects.get(sub5=sub2)
-                        elif(i=='sub6'):
-                            p = Phase.objects.get(sub6=sub2)
-                        else:
-                            raise Exception('sorry')
 
-                        
+        for k in subarray:
+            for i,j in k.items():
+                if sub1==j :
+                        fun_order(sub1,i)
+                            
+                if sub2==j :
+                        fun_order(sub2,i)
                 
-                        if p.exp < exp :
-                                if(i=='sub1'):
-                                    p.sub1=''
-                                elif(i=='sub2'):
-                                    p.sub2=''
-                                elif(i=='sub3'):
-                                    p.sub3=''
-                                elif(i=='sub4'):
-                                    p.sub4=''
-                                elif(i=='sub5'):
-                                    p.sub5=''
-                                elif(i=='sub6'):
-                                    p.sub6=''
-                                print(p.mail)
-                                p.status='UPDATE'
-                                classid = ClassDivisions.objects.get(classid=sub2)
-                                classid.exp = exp
-                                classid.save()
-                                p.save()
-                                break
-                        
-                except:
-                    print('no')
-            
-                try:   
-                    if sub3==j :
-                        if(i=='sub1'):
-                            p = Phase.objects.get(sub1=sub3)
-                        elif(i=='sub2'):
-                            p = Phase.objects.get(sub2=sub3)
-                        elif(i=='sub3'):
-                            p = Phase.objects.get(sub3=sub3)
-                        elif(i=='sub4'):
-                            p = Phase.objects.get(sub4=sub3)
-                        elif(i=='sub5'):
-                            p = Phase.objects.get(sub5=sub3)
-                        elif(i=='sub6'):
-                            p = Phase.objects.get(sub6=sub3)
-                        else:
-                            raise Exception('sorry')
-                        if p.exp < exp and sub3 != "":
-                                if(i=='sub1'):
-                                    p.sub1=''
-                                elif(i=='sub2'):
-                                    p.sub2=''
-                                elif(i=='sub3'):
-                                    p.sub3=''
-                                elif(i=='sub4'):
-                                    p.sub4=''
-                                elif(i=='sub5'):
-                                    p.sub5=''
-                                elif(i=='sub6'):
-                                    p.sub6=''
-                                
-                                print(p.mail)
-                                p.status='UPDATE'
-                                classid = ClassDivisions.objects.get(classid=sub3)
-                                classid.exp = exp
-                                classid.save()
-                                p.save()
-                                break
-                            
-                except:
-                    print('no')
-                try:   
-                    if sub4==j :
-
-                        if(i=='sub1'):
-                            p = Phase.objects.get(sub1=sub4)
-                        elif(i=='sub2'):
-                            p = Phase.objects.get(sub2=sub4)
-                        elif(i=='sub3'):
-                            p = Phase.objects.get(sub3=sub4)
-                        elif(i=='sub4'):
-                            p = Phase.objects.get(sub4=sub4)
-                        elif(i=='sub5'):
-                            p = Phase.objects.get(sub5=sub4)
-                        elif(i=='sub6'):
-                            p = Phase.objects.get(sub6=sub4)
-                        else:
-                            raise Exception('sorry')
-                        if p.exp < exp and sub4 != "":
-                                if(i=='sub1'):
-                                    p.sub1=''
-                                elif(i=='sub2'):
-                                    p.sub2=''
-                                elif(i=='sub3'):
-                                    p.sub3=''
-                                elif(i=='sub4'):
-                                    p.sub4=''
-                                elif(i=='sub5'):
-                                    p.sub5=''
-                                elif(i=='sub6'):
-                                    p.sub6=''
-                                print(p.mail)
-                                p.status='UPDATE'
-                                classid = ClassDivisions.objects.get(classid=sub4)
-                                classid.exp = exp
-                                classid.save()
-                                p.save()
-                                break
-                            
-                except:
-                    print('no')
+                if sub3==j :
+                        fun_order(sub3,i)
                 
-                try:   
-                    if sub5==j:
-
-                        if(i=='sub1'):
-                            p = Phase.objects.get(sub1=sub5)
-                        elif(i=='sub2'):
-                            p = Phase.objects.get(sub2=sub5)
-                        elif(i=='sub3'):
-                            p = Phase.objects.get(sub3=sub5)
-                        elif(i=='sub4'):
-                            p = Phase.objects.get(sub4=sub5)
-                        elif(i=='sub5'):
-                            p = Phase.objects.get(sub5=sub5)
-                        elif(i=='sub6'):
-                            p = Phase.objects.get(sub6=sub5)
-                        else:
-                            raise Exception('sorry')
-                        if p.exp < exp and sub5 != "":
-                                if(i=='sub1'):
-                                    p.sub1=''
-                                elif(i=='sub2'):
-                                    p.sub2=''
-                                elif(i=='sub3'):
-                                    p.sub3=''
-                                elif(i=='sub4'):
-                                    p.sub4=''
-                                elif(i=='sub5'):
-                                    p.sub5=''
-                                elif(i=='sub6'):
-                                    p.sub6=''
-                                print(p.mail)
-                                p.status='UPDATE'
-                                classid = ClassDivisions.objects.get(classid=sub5)
-                                classid.exp = exp
-                                classid.save()
-                                p.save()
-                                break
-                            
-                except:
-                    print('no')
+                if sub4==j :
+                        fun_order(sub4,i)
+                
+                if sub5==j :
+                        fun_order(sub5,i)
+                
+                if sub6==j :
+                        fun_order(sub6,i)
                 
                 
-            
-                try:   
-                    if sub6==j:
-                        if(i=='sub1'):
-                            p = Phase.objects.get(sub1=sub6)
-                        elif(i=='sub2'):
-                            p = Phase.objects.get(sub2=sub6)
-                        elif(i=='sub3'):
-                            p = Phase.objects.get(sub3=sub6)
-                        elif(i=='sub4'):
-                            p = Phase.objects.get(sub4=sub6)
-                        elif(i=='sub5'):
-                            p = Phase.objects.get(sub5=sub6)
-                        elif(i=='sub6'):
-                            p = Phase.objects.get(sub6=sub6)
-                        else:
-                            raise Exception('sorry')
-                        if p.exp < exp and sub6 != "":
-                                if(i=='sub1'):
-                                    p.sub1=''
-                                elif(i=='sub2'):
-                                    p.sub2=''
-                                elif(i=='sub3'):
-                                    p.sub3=''
-                                elif(i=='sub4'):
-                                    p.sub4=''
-                                elif(i=='sub5'):
-                                    p.sub5=''
-                                elif(i=='sub6'):
-                                    p.sub6=''
-                                print(p.mail)
-                                p.status='UPDATE'
-                                classid = ClassDivisions.objects.get(classid=sub6)
-                                classid.exp = exp
-                                classid.save()
-                                p.save()
-                                break
-                            
-                except:
-                    print('no')
-
-
         i = 1
         while i <= count:
             sub = requestbody["sub" + str(i)]
