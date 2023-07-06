@@ -38,12 +38,16 @@ class TeacherLogin(models.Model):
 
 class TeacherSelection(models.Model):
     tid=models.ForeignKey(Teacher, on_delete=models.CASCADE) 
-    sub1=models.CharField(max_length=10) 
-    sub2=models.CharField(max_length=10)
-    sub3=models.CharField(max_length=10)
-    sub4=models.CharField(max_length=10)
+    sub1=models.CharField(max_length=20) 
+    sub2=models.CharField(max_length=20)
+    sub3=models.CharField(max_length=20)
+    sub4=models.CharField(max_length=20)
+    sub5=models.CharField(max_length=20)
+    sub6=models.CharField(max_length=20)
     count=models.IntegerField()
     selectionid=models.CharField(max_length=20,primary_key=True)
+    year=models.CharField(max_length=20)
+  
 
 
 class ClassDivisions(models.Model):
@@ -77,4 +81,7 @@ class Phase(models.Model):
 class phaseno(models.Model):
     no=models.CharField(max_length=20,primary_key=True)
     active=models.CharField(max_length=20)
+
+class Final(models.Model):
+    val=models.CharField(max_length=20)
 

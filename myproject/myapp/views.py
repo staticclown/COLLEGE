@@ -10,6 +10,7 @@ from .models import (
     TeacherLogin,
     TeacherSelection,
     ClassDivisions,
+    Final,
 )
 from .models import Department, phaseno, Phase
 from .serializers import (
@@ -17,6 +18,7 @@ from .serializers import (
     Subjectserializer,
     AdminLoginserializer,
     TeacherLoginserializer,
+    Finalserializer,
 )
 from .serializers import (
     TeacherSelectionserializer,
@@ -114,10 +116,6 @@ class SubjectUpdation(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = Subjectserializer
     queryset = Subject.objects.all()
 
-
-class TeacherSelectionview(generics.ListCreateAPIView):
-    queryset = TeacherSelection.objects.all()
-    serializer_class = TeacherSelectionserializer
 
 
 class ClassDivisionsview(generics.ListCreateAPIView):
@@ -450,3 +448,78 @@ class subselect(generics.ListCreateAPIView):
         phaseid.save()
 
         return HttpResponse("OK", status=status.HTTP_200_OK)
+
+
+class Finalview(generics.CreateAPIView):
+    serializer_class =Finalserializer
+
+    def post(self, request, *args, **kwargs):
+        requestbody = dict(request.data)
+        p=Phase.objects.all()
+        arrtid=[]
+        for i in p:
+            nosub=i.no
+            
+            t=i.tid
+            teacherobj=Teacher.objects.get(tid=t.tid)
+            pos=teacherobj.pos
+
+            flag=0
+            if pos==2 or pos==1:
+                if nosub<1:
+                    flag=1
+            elif pos==0:
+                if nosub<2:
+                    flag=1
+
+            
+            if(flag==1):
+                arrtid.append(t.tid)
+
+        print(arrtid)
+
+        if len(arrtid)!=0:
+            return HttpResponse(arrtid, status=status.HTTP_200_OK)
+
+        elif len(arrtid)==0:
+            p1=Phase.objects.all()
+            for i in p1:
+                nosub=i.no
+                t=i.tid
+                sub1=i.sub1
+                sub2=i.sub2
+                sub3=i.sub3
+                sub4=i.sub4
+                sub5=i.sub5
+                sub6=i.sub6
+                pno=phaseno.objects.all()
+                year=pno[0].no
+                no = random.randint(10000, 99999)
+                no = "S" + str(no)
+                
+
+                new_val=TeacherSelection(tid=t,
+                sub1=sub1,
+                sub2=sub2,
+                sub3=sub3,
+                sub4=sub4,
+                sub5=sub5,
+                sub6=sub6,
+                count=nosub,
+                selectionid=no,
+                year=year)
+
+                new_val.save()
+            return HttpResponse("ok", status=status.HTTP_200_OK)
+                
+
+
+class TeacherSelectionview(generics.ListCreateAPIView):
+    queryset = TeacherSelection.objects.all()
+    serializer_class = TeacherSelectionserializer
+
+
+
+
+
+

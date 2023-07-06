@@ -8,7 +8,7 @@ urlpatterns = [
     path('department',views.DepartmentView.as_view()),
     path('adminlogin/',views.AdminLoginView.as_view()),
     path('teacherlogin',views.TeacherLoginView.as_view()),
-    path('teacherlogin/selection',views.TeacherSelectionview.as_view()),
+    path('selectionfinal',views.Finalview.as_view()),
     path('teacherlogin/division',views.ClassDivisionsview.as_view()),
     path('teacherdeletion/<str:pk>',views.TeacherDeletion.as_view()),
     path('teacherupdation/<str:pk>',views.TeacherUpdation.as_view()),
@@ -21,4 +21,5 @@ urlpatterns = [
     path('phaseupdate/<str:pk>',views.Phaseupdate.as_view()),
     path('subselect',views.subselect.as_view()),
     path('phaseview',views.phaseview.as_view()),
+    path('teachersubs',views.TeacherSelectionview.as_view()),
 ]
