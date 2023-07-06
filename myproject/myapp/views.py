@@ -222,7 +222,7 @@ class phase1view(generics.ListCreateAPIView):
             no = "P" + str(no)
             obj = Teacher.objects.get(tid=val)
             new_entry = Phase(
-                no=1,
+                no=0,
                 pid=no,
                 tid=obj,
                 alloc=0,
@@ -285,7 +285,7 @@ class phase2view(generics.ListCreateAPIView):
             no = "P" + str(no)
             obj = Teacher.objects.get(tid=val)
             new_entry = Phase(
-                no=2,
+                no=0,
                 pid=no,
                 tid=obj,
                 alloc=0,
@@ -396,6 +396,7 @@ class subselect(generics.ListCreateAPIView):
                                 p.sub6=''
                             print(p.mail)
                             p.status='UPDATE'
+                            p.no=p.no-1
                             classid = ClassDivisions.objects.get(classid=sub)
                             classid.exp = exp
                             classid.save()
