@@ -14,8 +14,15 @@ class Subject(models.Model):
     depid=models.ForeignKey(Department, on_delete=models.CASCADE,default='D0001') 
     subtype=models.CharField(max_length=5,default='T')
     
-   
-
+class otherSubject(models.Model):
+    subid=models.CharField(max_length=25,primary_key=True)
+    subname=models.CharField(max_length=45)
+    sem=models.CharField(max_length=10)
+    year=models.CharField(max_length=10)
+    depid=models.ForeignKey(Department, on_delete=models.CASCADE,default='D0001') 
+    subtype=models.CharField(max_length=5,default='T') 
+    count=models.IntegerField()
+    
 
 class Teacher(models.Model):
     tname=models.CharField(max_length=15)

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Teacher,Subject,AdminLogin,TeacherLogin,ClassDivisions
+from .models import Teacher,Subject,AdminLogin,TeacherLogin,ClassDivisions,otherSubject
 from .models import Department,phaseno,Phase,TeacherSelection,Final
 class Teacherserializer(serializers.ModelSerializer):
     class Meta:
@@ -60,3 +60,8 @@ class Addclassserializer(serializers.ModelSerializer):
     class Meta:
         model=Phase
         fields=['no','tid','sub1','sub2','sub3','sub4','sub5','sub6']
+
+class otherSubjectserializer(serializers.ModelSerializer):
+    class Meta:
+        model=otherSubject
+        fields=['subid','subname','sem','depid','subtype','count']

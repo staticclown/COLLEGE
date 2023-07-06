@@ -11,6 +11,7 @@ from .models import (
     TeacherSelection,
     ClassDivisions,
     Final,
+    otherSubject,
 )
 from .models import Department, phaseno, Phase
 from .serializers import (
@@ -19,6 +20,7 @@ from .serializers import (
     AdminLoginserializer,
     TeacherLoginserializer,
     Finalserializer,
+    otherSubjectserializer,
 )
 from .serializers import (
     TeacherSelectionserializer,
@@ -180,6 +182,79 @@ class split(generics.CreateAPIView):
             i = i + 1
 
         return HttpResponse("OK", status=status.HTTP_200_OK)
+
+
+class othersplitview(generics.CreateAPIView):
+    serializer_class = otherSubjectserializer
+
+    def post(self, request, *args, **kwargs):
+        requestbody = dict(request.data)
+        print(requestbody)
+        sid = requestbody["subid"]
+        subname = requestbody["subname"]
+        sem = requestbody["sem"]
+        did = requestbody["depid"]
+        subtype = requestbody["subtype"]
+        count=requestbody['count']
+        user = Department.objects.get(depid=did)
+        sub = Subject.objects.get(subid=sid)
+        name = user.depname
+
+        i=0
+
+        while i<count:
+            
+                if subtype == "E":
+                    no = random.randint(10000, 99999)
+                    no = "C" + str(no)
+                    print(no)
+                    new_entry = ClassDivisions(
+                        classid=no,
+                        classname=name ,
+                        subject=sub,
+                        depid=user,
+                        classalloc=0,
+                        exp=0,
+                        sem=sem,
+                        subtype=subtype,
+                    )
+                    new_entry.save()
+                
+                if subtype == "H":
+                    no = random.randint(10000, 99999)
+                    no = "C" + str(no)
+                    print(no)
+                    new_entry = ClassDivisions(
+                        classid=no,
+                        classname=name ,
+                        subject=sub,
+                        depid=user,
+                        classalloc=0,
+                        exp=0,
+                        sem=sem,
+                        subtype=subtype,
+                    )
+                    new_entry.save()
+
+                if subtype == "M":
+                    no = random.randint(10000, 99999)
+                    no = "C" + str(no)
+                    print(no)
+                    new_entry = ClassDivisions(
+                        classid=no,
+                        classname=name,
+                        subject=sub,
+                        depid=user,
+                        classalloc=0,
+                        exp=0,
+                        sem=sem,
+                        subtype=subtype,
+                    )
+                    new_entry.save()
+
+                i=i+1
+        return HttpResponse("OK", status=status.HTTP_200_OK)
+
 
 
 class phase1view(generics.ListCreateAPIView):
@@ -494,6 +569,7 @@ class Finalview(generics.CreateAPIView):
                 sub6=i.sub6
                 pno=phaseno.objects.all()
                 year=pno[0].no
+
                 no = random.randint(10000, 99999)
                 no = "S" + str(no)
                 
