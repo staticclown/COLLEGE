@@ -330,7 +330,9 @@ class subselect(generics.ListCreateAPIView):
         exp = current_year - int(teacherid.year.strftime("%Y"))
         subarray=[]
         p = Phase.objects.all()
+
         for i in p:
+            
             if   i.sub1!='':
                 d={}
                 d['sub1']=i.sub1
