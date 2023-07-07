@@ -204,7 +204,7 @@ class othersplitview(generics.CreateAPIView):
 
         while i<count:
             
-                if subtype == "E":
+                if subtype == "E" or "H" or "M":
                     no = random.randint(10000, 99999)
                     no = "C" + str(no)
                     print(no)
@@ -220,37 +220,7 @@ class othersplitview(generics.CreateAPIView):
                     )
                     new_entry.save()
                 
-                if subtype == "H":
-                    no = random.randint(10000, 99999)
-                    no = "C" + str(no)
-                    print(no)
-                    new_entry = ClassDivisions(
-                        classid=no,
-                        classname=name ,
-                        subject=sub,
-                        depid=user,
-                        classalloc=0,
-                        exp=0,
-                        sem=sem,
-                        subtype=subtype,
-                    )
-                    new_entry.save()
-
-                if subtype == "M":
-                    no = random.randint(10000, 99999)
-                    no = "C" + str(no)
-                    print(no)
-                    new_entry = ClassDivisions(
-                        classid=no,
-                        classname=name,
-                        subject=sub,
-                        depid=user,
-                        classalloc=0,
-                        exp=0,
-                        sem=sem,
-                        subtype=subtype,
-                    )
-                    new_entry.save()
+                
 
                 i=i+1
         return HttpResponse("OK", status=status.HTTP_200_OK)
