@@ -92,3 +92,7 @@ class phaseno(models.Model):
 class Final(models.Model):
     val=models.CharField(max_length=20)
 
+
+class clash(models.Model):
+    clashid=models.CharField(max_length=20)
+

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Teacher,Subject,AdminLogin,TeacherLogin,ClassDivisions,otherSubject
-from .models import Department,phaseno,Phase,TeacherSelection,Final
+from .models import Department,phaseno,Phase,TeacherSelection,Final,clash
 class Teacherserializer(serializers.ModelSerializer):
     class Meta:
         model=Teacher
@@ -53,6 +53,11 @@ class Phasenoserializer(serializers.ModelSerializer):
     class Meta:
         model=phaseno
         fields=['no','active']
+
+class clashserializer(serializers.ModelSerializer):
+    class Meta:
+        model=clash
+        fields=['clashid']
 
 
 

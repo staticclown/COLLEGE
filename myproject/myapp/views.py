@@ -13,7 +13,7 @@ from .models import (
     Final,
     otherSubject,
 )
-from .models import Department, phaseno, Phase
+from .models import Department, phaseno, Phase,clash
 from .serializers import (
     Teacherserializer,
     Subjectserializer,
@@ -26,6 +26,7 @@ from .serializers import (
     TeacherSelectionserializer,
     Departmentserializer,
     Phaseserializer,
+    clashserializer
 )
 from .serializers import Phasenoserializer, ClassDivisionsserializer, Addclassserializer
 from rest_framework.response import Response
@@ -501,6 +502,7 @@ class Finalview(generics.CreateAPIView):
     def post(self, request, *args, **kwargs):
         requestbody = dict(request.data)
         p=Phase.objects.all()
+        clash.objects.all().delete()
         arrtid=[]
         for i in p:
             nosub=i.no
@@ -520,6 +522,8 @@ class Finalview(generics.CreateAPIView):
             
             if(flag==1):
                 arrtid.append(t.tid)
+                new_entry =clash(clasid=tid)
+                new_entry.save()
 
         print(arrtid)
 
@@ -528,6 +532,7 @@ class Finalview(generics.CreateAPIView):
 
         elif len(arrtid)==0:
             p1=Phase.objects.all()
+            clash.objects.all().delete()
             for i in p1:
                 nosub=i.no
                 t=i.tid
@@ -556,6 +561,8 @@ class Finalview(generics.CreateAPIView):
                 year=year)
 
                 new_val.save()
+                new_entry =clash(clasid='OK')
+                new_entry.save()
             return HttpResponse("ok", status=status.HTTP_200_OK)
                 
 
@@ -565,6 +572,10 @@ class TeacherSelectionview(generics.ListCreateAPIView):
     serializer_class = TeacherSelectionserializer
 
 
+
+class clashview(generics.ListCreateAPIView):
+    queryset = clash.objects.all()
+    serializer_class = clashserializer
 
 
 
