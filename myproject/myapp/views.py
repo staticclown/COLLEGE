@@ -522,7 +522,7 @@ class Finalview(generics.CreateAPIView):
             
             if(flag==1):
                 arrtid.append(t.tid)
-                new_entry =clash(clasid=t.tid)
+                new_entry =clash(clashid=t.tid)
                 new_entry.save()
 
         print(arrtid)
