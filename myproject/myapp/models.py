@@ -96,3 +96,6 @@ class Final(models.Model):
 class clash(models.Model):
     clashid=models.CharField(max_length=20)
 
+class semtype(models.Model):
+    sem=models.CharField(max_length=20)
+

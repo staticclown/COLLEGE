@@ -24,4 +24,5 @@ urlpatterns = [
     path('phaseview',views.phaseview.as_view()),
     path('teachersubs',views.TeacherSelectionview.as_view()),
     path('clash',views.clashview.as_view()),
+    path('semtype',views.semtypeview.as_view()),
 ]

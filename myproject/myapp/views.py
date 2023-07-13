@@ -12,6 +12,7 @@ from .models import (
     ClassDivisions,
     Final,
     otherSubject,
+    semtype,
 )
 from .models import Department, phaseno, Phase,clash
 from .serializers import (
@@ -26,7 +27,8 @@ from .serializers import (
     TeacherSelectionserializer,
     Departmentserializer,
     Phaseserializer,
-    clashserializer
+    clashserializer,
+    Semtypeserializer
 )
 from .serializers import Phasenoserializer, ClassDivisionsserializer, Addclassserializer
 from rest_framework.response import Response
@@ -578,5 +580,8 @@ class clashview(generics.ListCreateAPIView):
     serializer_class = clashserializer
 
 
+class semtypeview(generics.ListCreateAPIView):
+    queryset = semtype.objects.all()
+    serializer_class = Semtypeserializer
 
 

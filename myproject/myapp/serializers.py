@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Teacher,Subject,AdminLogin,TeacherLogin,ClassDivisions,otherSubject
-from .models import Department,phaseno,Phase,TeacherSelection,Final,clash
+from .models import Department,phaseno,Phase,TeacherSelection,Final,clash,semtype
 class Teacherserializer(serializers.ModelSerializer):
     class Meta:
         model=Teacher
@@ -70,3 +70,8 @@ class otherSubjectserializer(serializers.ModelSerializer):
     class Meta:
         model=otherSubject
         fields=['subid','subname','sem','depid','subtype','count']
+
+class Semtypeserializer(serializers.ModelSerializer):
+    class Meta:
+        model=semtype
+        fields=['sem']
