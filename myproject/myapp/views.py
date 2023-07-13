@@ -565,7 +565,7 @@ class Finalview(generics.CreateAPIView):
                 year=year)
 
                 new_val.save()
-                new_entry =clash(clasid='OK')
+                new_entry =clash(clashid='OK')
                 new_entry.save()
             return HttpResponse("ok", status=status.HTTP_200_OK)
                 
