@@ -593,7 +593,7 @@ class semtypeview(generics.ListCreateAPIView):
         sem = requestbody["sem"]
         new_val=semtype(sem=sem)
         new_val.save()
-
+        return HttpResponse("ok", status=status.HTTP_200_OK)
 
 
 
