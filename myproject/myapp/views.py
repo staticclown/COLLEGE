@@ -603,7 +603,7 @@ class phaseteacherview(generics.CreateAPIView):
             s5=i.sub5
             s6=i.sub6
             teachername=t.tname
-            print(tname)
+            print(teachername)
             cd=ClassDivisions.objects.all()
 
             for j in cd:
@@ -637,6 +637,7 @@ class phaseteacherview(generics.CreateAPIView):
                 if check==1:
                     print(subid.subname)
                     print(classname)
+        return HttpResponse("ok", status=status.HTTP_200_OK)
                 
 
             
