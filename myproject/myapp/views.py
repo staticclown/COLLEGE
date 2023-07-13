@@ -587,12 +587,22 @@ class clashview(generics.ListCreateAPIView):
 class semtypeview(generics.ListCreateAPIView):
     queryset = semtype.objects.all()
     serializer_class = Semtypeserializer
+    def post(self, request, *args, **kwargs):
+        requestbody = dict(request.data)
+        semtype.objects.all().delete()
+        sem = requestbody["sem"]
+        new_val=semtype(sem=sem)
+        new_val.save()
+
+
+
 
 class phasegetview(generics.CreateAPIView):
     serializer_class = phasegetserializer
 
     def post(self, request, *args, **kwargs):
         requestbody = dict(request.data)
+        Phaseteacher.objects.all().delete()
         p = Phase.objects.all()
 
         for i in p:
@@ -673,6 +683,5 @@ class Phaseteacherview(generics.ListCreateAPIView):
     serializer_class = phaseteacherserializer
 
 
-            
 
 
