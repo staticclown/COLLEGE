@@ -654,7 +654,7 @@ class phasegetview(generics.CreateAPIView):
                     check=1
                 if check==1:
                     arr.insert(k,subid.subname)
-                    arr.append(k+1,classname)
+                    arr.insert(k+1,classname)
                     print(subid.subname)
                     print(classname)
                     k=k+2
