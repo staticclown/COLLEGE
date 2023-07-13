@@ -25,5 +25,6 @@ urlpatterns = [
     path('teachersubs',views.TeacherSelectionview.as_view()),
     path('clash',views.clashview.as_view()),
     path('semtype',views.semtypeview.as_view()),
-    path('tableview',views.phaseteacherview.as_view()),
+    path('getview',views.phasegetview.as_view()),
+    path('tableview',views.Phaseteacherview.as_view()),
 ]

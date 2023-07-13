@@ -14,6 +14,7 @@ from .models import (
     otherSubject,
     semtype,
     phaseget,
+    Phaseteacher,
 )
 from .models import Department, phaseno, Phase,clash
 from .serializers import (
@@ -24,6 +25,7 @@ from .serializers import (
     Finalserializer,
     otherSubjectserializer,
     phasegetserializer,
+    phaseteacherserializer,
 )
 from .serializers import (
     TeacherSelectionserializer,
@@ -586,7 +588,7 @@ class semtypeview(generics.ListCreateAPIView):
     queryset = semtype.objects.all()
     serializer_class = Semtypeserializer
 
-class phaseteacherview(generics.CreateAPIView):
+class phasegetview(generics.CreateAPIView):
     serializer_class = phasegetserializer
 
     def post(self, request, *args, **kwargs):
@@ -603,7 +605,13 @@ class phaseteacherview(generics.CreateAPIView):
             s5=i.sub5
             s6=i.sub6
             teachername=t.tname
+            arr=[]
+            k=0
+            while k<12:
+                arr.insert(k," ")
+                k=k+1
             print(teachername)
+            k=0
             cd=ClassDivisions.objects.all()
 
             for j in cd:
@@ -635,12 +643,34 @@ class phaseteacherview(generics.CreateAPIView):
                     classname=j.classname
                     check=1
                 if check==1:
+                    arr.insert(k,subid.subname)
+                    arr.append(k+1,classname)
                     print(subid.subname)
                     print(classname)
+                    k=k+2
+            new_val=Phaseteacher(tname=teachername,
+            sub1=arr[0],
+            classname1=arr[1],
+            sub2=arr[2],
+            classname2=arr[3],
+            sub3=arr[4],
+            classname3=arr[5],
+            sub4=arr[6],
+            classname4=arr[7],
+            sub5=arr[8],
+            classname5=arr[9],
+            sub6=arr[10],
+            classname6=arr[11],
+            )        
+            new_val.save()
+        
         return HttpResponse("ok", status=status.HTTP_200_OK)
                 
 
             
+class Phaseteacherview(generics.ListCreateAPIView):
+    queryset = Phaseteacher.objects.all()
+    serializer_class = phaseteacherserializer
 
 
             

@@ -107,6 +107,12 @@ class Phaseteacher(models.Model):
     sub4=models.CharField(max_length=20)
     sub5=models.CharField(max_length=20)
     sub6=models.CharField(max_length=20)
+    classname1=models.CharField(max_length=20,default="")
+    classname2=models.CharField(max_length=20,default="")
+    classname3=models.CharField(max_length=20,default="")
+    classname4=models.CharField(max_length=20,default="")
+    classname5=models.CharField(max_length=20,default="")
+    classname6=models.CharField(max_length=20,default="")
     
 class phaseget(models.Model):
     val=models.CharField(max_length=20)
