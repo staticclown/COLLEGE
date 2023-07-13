@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Teacher,Subject,AdminLogin,TeacherLogin,ClassDivisions,otherSubject
-from .models import Department,phaseno,Phase,TeacherSelection,Final,clash,semtype
+from .models import Department,phaseno,Phase,TeacherSelection,Final,clash,semtype,phaseget
 class Teacherserializer(serializers.ModelSerializer):
     class Meta:
         model=Teacher
@@ -75,3 +75,9 @@ class Semtypeserializer(serializers.ModelSerializer):
     class Meta:
         model=semtype
         fields=['sem']
+
+class phasegetserializer(serializers.ModelSerializer):
+
+    class Meta:
+        model=phaseget
+        fields=['val']

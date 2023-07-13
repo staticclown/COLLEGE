@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Teacher,Subject,Department,AdminLogin,TeacherLogin
+from .models import Teacher,Subject,Department,AdminLogin,TeacherLogin,phaseget
 from .models import phaseno,ClassDivisions,Phase,TeacherSelection,Final,semtype
 
 admin.site.register(Teacher)
@@ -13,4 +13,5 @@ admin.site.register(Phase)
 admin.site.register(phaseno)
 admin.site.register(Final)
 admin.site.register(semtype)
+admin.site.register(phaseget)
 # Register your models here.

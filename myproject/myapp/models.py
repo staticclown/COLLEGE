@@ -99,3 +99,14 @@ class clash(models.Model):
 class semtype(models.Model):
     sem=models.CharField(max_length=20)
 
+class Phaseteacher(models.Model):
+    tname=models.CharField(max_length=20)
+    sub1=models.CharField(max_length=20)
+    sub2=models.CharField(max_length=20)
+    sub3=models.CharField(max_length=20)
+    sub4=models.CharField(max_length=20)
+    sub5=models.CharField(max_length=20)
+    sub6=models.CharField(max_length=20)
+    
+class phaseget(models.Model):
+    val=models.CharField(max_length=20)

@@ -13,6 +13,7 @@ from .models import (
     Final,
     otherSubject,
     semtype,
+    phaseget,
 )
 from .models import Department, phaseno, Phase,clash
 from .serializers import (
@@ -22,6 +23,7 @@ from .serializers import (
     TeacherLoginserializer,
     Finalserializer,
     otherSubjectserializer,
+    phasegetserializer,
 )
 from .serializers import (
     TeacherSelectionserializer,
@@ -583,5 +585,63 @@ class clashview(generics.ListCreateAPIView):
 class semtypeview(generics.ListCreateAPIView):
     queryset = semtype.objects.all()
     serializer_class = Semtypeserializer
+
+class phaseteacherview(generics.CreateAPIView):
+    serializer_class = phasegetserializer
+
+    def post(self, request, *args, **kwargs):
+        requestbody = dict(request.data)
+        p = Phase.objects.all()
+
+        for i in p:
+            t=i.tid
+            teacherobj=Teacher.objects.get(tid=t.tid)
+            s1=i.sub1
+            s2=i.sub2
+            s3=i.sub3
+            s4=i.sub4
+            s5=i.sub5
+            s6=i.sub6
+            teachername=t.tname
+            print(tname)
+            cd=ClassDivisions.objects.all()
+
+            for j in cd:
+                cid=j.classid
+                check=0
+
+                if(cid==s1):
+                    subid=j.subject
+                    classname=j.classname
+                    check=1
+                elif(cid==s2):
+                    subid=j.subject
+                    classname=j.classname
+                    check=1
+                elif(cid==s3):
+                    subid=j.subject
+                    classname=j.classname
+                    check=1
+                elif(cid==s4):
+                    subid=j.subject
+                    classname=j.classname
+                    check=1
+                elif(cid==s5):
+                    subid=j.subject
+                    classname=j.classname
+                    check=1
+                elif(cid==s6):
+                    subid=j.subject
+                    classname=j.classname
+                    check=1
+                if check==1:
+                    print(subid.subname)
+                    print(classname)
+                
+
+            
+
+
+            
 
 
