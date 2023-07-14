@@ -521,6 +521,7 @@ class Finalview(generics.CreateAPIView):
             t=i.tid
             teacherobj=Teacher.objects.get(tid=t.tid)
             pos=teacherobj.pos
+            #print(pos,t,nosub)
 
             flag=0
             if pos==2 or pos==1:
@@ -550,9 +551,9 @@ class Finalview(generics.CreateAPIView):
                 t=i.tid
                 teacherobj=Teacher.objects.get(tid=t.tid)
                 pos=teacherobj.pos
-                if pos==0 or pos==1:
+                if pos==2 or pos==1:
                     max=1
-                elif pos==2:
+                elif pos==0:
                     max=2
                 
                 count=0
