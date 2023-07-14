@@ -700,6 +700,19 @@ class Finalview(generics.CreateAPIView):
                     new_val.save()
                     new_entry =clash(clashid='OK')
                     new_entry.save()
+
+                elif len(arr)==0:
+                    i.no=0
+                    i.status='UPDATE'
+                    i.sub1=" "
+                    i.sub2=" "
+                    i.sub3=" "
+                    i.sub4=" "
+                    i.sub5=" "
+                    i.sub6=" "
+                    print(i.mail)
+
+
             return HttpResponse("ok", status=status.HTTP_200_OK)
                 
 
