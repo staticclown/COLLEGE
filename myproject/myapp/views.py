@@ -670,12 +670,14 @@ class Finalview(generics.CreateAPIView):
                                     
 
                 if len(arr)==1:
-                    arr.insert(1," ")        
-
-                if len(arr)==0:
+                    arr.insert(1," ")
+                    nosub=1        
+                elif len(arr)==2:
+                    nosub=2
+                elif len(arr)==0:
                     print(t.tid)
                 #teacherselection
-                                    
+                
 
                 no = random.randint(10000, 99999)
                 no = "S" + str(no)
