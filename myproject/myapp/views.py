@@ -579,13 +579,13 @@ class Finalview(generics.CreateAPIView):
                         if int(calloc)==0:
                                 print("in calloc")
                                 count=count+1
-                                if(count<max):
+                                if(count<=max):
                                     print("in count")
                                     arr.append(sub1)
                                     j.classalloc=1
                                     j.save()
                                     break
-                                if count>=max:
+                                if count>max:
                                     check=1
                                     break
 
@@ -597,12 +597,12 @@ class Finalview(generics.CreateAPIView):
                         calloc=j.classalloc
                         if int(calloc) ==0:
                                 count=count+1
-                                if(count<max):
+                                if(count<=max):
                                     arr.append(sub2)
                                     j.classalloc=1
                                     j.save()
                                     break
-                                if count>=max:
+                                if count>max:
                                     check=1
                                     break
                 #sub3
@@ -613,12 +613,14 @@ class Finalview(generics.CreateAPIView):
                         calloc=j.classalloc
                         if int(calloc) ==0:
                                 count=count+1
-                                if(count<max):
+                                print("in calloc3")
+                                if(count<=max):
+                                    print("in count3")
                                     arr.append(sub3)
                                     j.classalloc=1
                                     j.save()
                                     break
-                                if count>=max:
+                                if count>max:
                                     check=1
                                     break
                                     
@@ -630,12 +632,12 @@ class Finalview(generics.CreateAPIView):
                         calloc=j.classalloc
                         if int(calloc) ==0:
                                 count=count+1
-                                if(count<max):
+                                if(count<=max):
                                     arr.append(sub4)
                                     j.classalloc=1
                                     j.save()
                                     break
-                                if count>=max:
+                                if count>max:
                                     check=1
                                     break
                                     
@@ -647,12 +649,12 @@ class Finalview(generics.CreateAPIView):
                         calloc=j.classalloc
                         if int(calloc) ==0:
                                 count=count+1
-                                if(count<max):
+                                if(count<=max):
                                     arr.append(sub5)
                                     j.classalloc=1
                                     j.save()
                                     break
-                                if count>=max:
+                                if count>max:
                                     check=1
                                     break
                                     
@@ -664,12 +666,12 @@ class Finalview(generics.CreateAPIView):
                         calloc=j.classalloc
                         if int(calloc) ==0:
                                 count=count+1
-                                if(count<max):
+                                if(count<=max):
                                     arr.append(sub6)
                                     j.classalloc=1
                                     j.save()
                                     break
-                                if count>=max:
+                                if count>max:
                                     check=1
                                     break
                                     
@@ -683,21 +685,21 @@ class Finalview(generics.CreateAPIView):
                     print(t.tid)
                 #teacherselection
                 
+                if len(arr)!=0:
+                    no = random.randint(10000, 99999)
+                    no = "S" + str(no)
+                    print(arr)
 
-                no = random.randint(10000, 99999)
-                no = "S" + str(no)
-                print(arr)
+                    new_val=TeacherSelection(tid=t,
+                    sub1=arr[0],
+                    sub2=arr[1],
+                    count=nosub,
+                    selectionid=no,
+                    year=year)
 
-                new_val=TeacherSelection(tid=t,
-                sub1=arr[0],
-                sub2=arr[1],
-                count=nosub,
-                selectionid=no,
-                year=year)
-
-                new_val.save()
-                new_entry =clash(clashid='OK')
-                new_entry.save()
+                    new_val.save()
+                    new_entry =clash(clashid='OK')
+                    new_entry.save()
             return HttpResponse("ok", status=status.HTTP_200_OK)
                 
 
