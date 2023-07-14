@@ -433,20 +433,25 @@ class subselect(generics.ListCreateAPIView):
 
                         if p.exp < exp :
                             if(i=='sub1'):
-                                p.sub1=''
+                                upsub=p.sub1
                             elif(i=='sub2'):
-                                p.sub2=''
+                                upsub=p.sub2
                             elif(i=='sub3'):
-                                p.sub3=''
+                                upsub=p.sub3
                             elif(i=='sub4'):
-                                p.sub4=''
+                                upsub=p.sub4
                             elif(i=='sub5'):
-                                p.sub5=''
+                                upsub=p.sub5
                             elif(i=='sub6'):
-                                p.sub6=''
+                                upsub=p.sub6
                             print(p.mail)
                             p.status='UPDATE'
-                            p.no=p.no-1
+                            cd = ClassDivisions.objects.get(classid=upsub)
+                            # subs=Subject.objects.get(subid=cd.subject)
+                            # print(subs.subname)
+                            subs=cd.subject
+                            print(subs.subname)
+                            #p.no=p.no-1
                             classid = ClassDivisions.objects.get(classid=sub)
                             classid.exp = exp
                             classid.save()
@@ -479,7 +484,7 @@ class subselect(generics.ListCreateAPIView):
             if sub!='':
                 classid = ClassDivisions.objects.get(classid=sub)
                 classid.exp = exp
-                classid.classalloc = 1
+                classid.classalloc = 0
                 classid.save()
             i = i + 1
 
@@ -539,9 +544,19 @@ class Finalview(generics.CreateAPIView):
         elif len(arrtid)==0:
             p1=Phase.objects.all()
             clash.objects.all().delete()
+            
             for i in p1:
                 nosub=i.no
                 t=i.tid
+                teacherobj=Teacher.objects.get(tid=t.tid)
+                pos=teacherobj.pos
+                if pos==0 or pos==1:
+                    max=1
+                elif pos==2:
+                    max=2
+                
+                count=0
+                check=0
                 sub1=i.sub1
                 sub2=i.sub2
                 sub3=i.sub3
@@ -550,18 +565,125 @@ class Finalview(generics.CreateAPIView):
                 sub6=i.sub6
                 pno=phaseno.objects.all()
                 year=pno[0].no
+                arr=[]
+                
+                #sub1
+                cd=ClassDivisions.objects.all()
+                for j in cd:
+                    cid=j.classid
+                    if(cid==sub1):
+                        calloc=j.classalloc
+                        if calloc ==0:
+                                count=count+1
+                                if(count<max):
+                                    arr.append(sub1)
+                                    j.classalloc=1
+                                    j.save()
+                                    break
+                                if count>=max:
+                                    check=1
+                                    break
+
+                #sub2
+                cd=ClassDivisions.objects.all()
+                for j in cd:
+                    cid=j.classid
+                    if(cid==sub2):
+                        calloc=j.classalloc
+                        if calloc ==0:
+                                count=count+1
+                                if(count<max):
+                                    arr.append(sub2)
+                                    j.classalloc=1
+                                    j.save()
+                                    break
+                                if count>=max:
+                                    check=1
+                                    break
+                #sub3
+                cd=ClassDivisions.objects.all()
+                for j in cd:
+                    cid=j.classid
+                    if(cid==sub3):
+                        calloc=j.classalloc
+                        if calloc ==0:
+                                count=count+1
+                                if(count<max):
+                                    arr.append(sub3)
+                                    j.classalloc=1
+                                    j.save()
+                                    break
+                                if count>=max:
+                                    check=1
+                                    break
+                                    
+                #sub4
+                cd=ClassDivisions.objects.all()
+                for j in cd:
+                    cid=j.classid
+                    if(cid==sub4):
+                        calloc=j.classalloc
+                        if calloc ==0:
+                                count=count+1
+                                if(count<max):
+                                    arr.append(sub4)
+                                    j.classalloc=1
+                                    j.save()
+                                    break
+                                if count>=max:
+                                    check=1
+                                    break
+                                    
+                #sub5
+                cd=ClassDivisions.objects.all()
+                for j in cd:
+                    cid=j.classid
+                    if(cid==sub5):
+                        calloc=j.classalloc
+                        if calloc ==0:
+                                count=count+1
+                                if(count<max):
+                                    arr.append(sub5)
+                                    j.classalloc=1
+                                    j.save()
+                                    break
+                                if count>=max:
+                                    check=1
+                                    break
+                                    
+                #sub6
+                cd=ClassDivisions.objects.all()
+                for j in cd:
+                    cid=j.classid
+                    if(cid==sub6):
+                        calloc=j.classalloc
+                        if calloc ==0:
+                                count=count+1
+                                if(count<max):
+                                    arr.append(sub6)
+                                    j.classalloc=1
+                                    j.save()
+                                    break
+                                if count>=max:
+                                    check=1
+                                    break
+                                    
+
+                if len(arr)==1:
+                    arr.insert(1," ")        
+
+                if len(arr)==0:
+                    print(t.tid)
+                #teacherselection
+                                    
 
                 no = random.randint(10000, 99999)
                 no = "S" + str(no)
                 
 
                 new_val=TeacherSelection(tid=t,
-                sub1=sub1,
-                sub2=sub2,
-                sub3=sub3,
-                sub4=sub4,
-                sub5=sub5,
-                sub6=sub6,
+                sub1=arr[0],
+                sub2=arr[1],
                 count=nosub,
                 selectionid=no,
                 year=year)
