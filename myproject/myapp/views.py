@@ -549,6 +549,7 @@ class Finalview(generics.CreateAPIView):
             for i in p1:
                 nosub=i.no
                 t=i.tid
+                print(t)
                 teacherobj=Teacher.objects.get(tid=t.tid)
                 pos=teacherobj.pos
                 if pos==2 or pos==1:
@@ -574,9 +575,12 @@ class Finalview(generics.CreateAPIView):
                     cid=j.classid
                     if(cid==sub1):
                         calloc=j.classalloc
-                        if calloc ==0:
+                        #print("in",calloc)
+                        if int(calloc)==0:
+                                #print("in calloc")
                                 count=count+1
                                 if(count<max):
+                                    print("in count")
                                     arr.append(sub1)
                                     j.classalloc=1
                                     j.save()
@@ -591,7 +595,7 @@ class Finalview(generics.CreateAPIView):
                     cid=j.classid
                     if(cid==sub2):
                         calloc=j.classalloc
-                        if calloc ==0:
+                        if int(calloc) ==0:
                                 count=count+1
                                 if(count<max):
                                     arr.append(sub2)
@@ -607,7 +611,7 @@ class Finalview(generics.CreateAPIView):
                     cid=j.classid
                     if(cid==sub3):
                         calloc=j.classalloc
-                        if calloc ==0:
+                        if int(calloc) ==0:
                                 count=count+1
                                 if(count<max):
                                     arr.append(sub3)
@@ -624,7 +628,7 @@ class Finalview(generics.CreateAPIView):
                     cid=j.classid
                     if(cid==sub4):
                         calloc=j.classalloc
-                        if calloc ==0:
+                        if int(calloc) ==0:
                                 count=count+1
                                 if(count<max):
                                     arr.append(sub4)
@@ -641,7 +645,7 @@ class Finalview(generics.CreateAPIView):
                     cid=j.classid
                     if(cid==sub5):
                         calloc=j.classalloc
-                        if calloc ==0:
+                        if int(calloc) ==0:
                                 count=count+1
                                 if(count<max):
                                     arr.append(sub5)
@@ -658,7 +662,7 @@ class Finalview(generics.CreateAPIView):
                     cid=j.classid
                     if(cid==sub6):
                         calloc=j.classalloc
-                        if calloc ==0:
+                        if int(calloc) ==0:
                                 count=count+1
                                 if(count<max):
                                     arr.append(sub6)
@@ -682,7 +686,7 @@ class Finalview(generics.CreateAPIView):
 
                 no = random.randint(10000, 99999)
                 no = "S" + str(no)
-                
+                print(arr)
 
                 new_val=TeacherSelection(tid=t,
                 sub1=arr[0],
