@@ -575,9 +575,9 @@ class Finalview(generics.CreateAPIView):
                     cid=j.classid
                     if(cid==sub1):
                         calloc=j.classalloc
-                        #print("in",calloc)
+                        print("in",calloc)
                         if int(calloc)==0:
-                                #print("in calloc")
+                                print("in calloc")
                                 count=count+1
                                 if(count<max):
                                     print("in count")
