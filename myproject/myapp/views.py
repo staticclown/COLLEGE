@@ -575,36 +575,37 @@ class Finalview(generics.CreateAPIView):
                     cid=j.classid
                     if(cid==sub1):
                         calloc=j.classalloc
-                        #print("in",calloc)
+                        print("in",calloc)
                         if int(calloc)==0:
-                                #print("in calloc")
-                                count=count+1
-                                if(count<=max):
-                                    #print("in count")
+                                print("in calloc")
+                                if(count<max):
+                                    print("in count")
                                     arr.append(sub1)
                                     j.classalloc=1
                                     j.save()
+                                    count=count+1
                                     break
-                                if count>max:
-                                    check=1
-                                    break
+                if count>=max:
+                    check=1
+                                    
 
                 #sub2
                 cd=ClassDivisions.objects.all()
                 for j in cd:
                     cid=j.classid
-                    if(cid==sub2):
+                    if(cid==sub2 ):
                         calloc=j.classalloc
                         if int(calloc) ==0:
-                                count=count+1
-                                if(count<=max):
+                                
+                                if(count<max):
                                     arr.append(sub2)
                                     j.classalloc=1
                                     j.save()
+                                    count=count+1
                                     break
-                                if count>max:
-                                    check=1
-                                    break
+                if count>=max:
+                    check=1
+                            
                 #sub3
                 cd=ClassDivisions.objects.all()
                 for j in cd:
@@ -612,18 +613,19 @@ class Finalview(generics.CreateAPIView):
                     if(cid==sub3):
                         calloc=j.classalloc
                         if int(calloc) ==0:
-                                count=count+1
-                                #print("in calloc3")
-                                if(count<=max):
-                                    #print("in count3")
+                                
+                                print("in calloc3")
+                                if(count<max):
+                                    print("in count3")
                                     arr.append(sub3)
                                     j.classalloc=1
                                     j.save()
+                                    count=count+1
                                     break
-                                if count>max:
-                                    check=1
-                                    break
-                                    
+                                
+                if count>=max:
+                    check=1
+                                                
                 #sub4
                 cd=ClassDivisions.objects.all()
                 for j in cd:
@@ -631,16 +633,17 @@ class Finalview(generics.CreateAPIView):
                     if(cid==sub4):
                         calloc=j.classalloc
                         if int(calloc) ==0:
-                                count=count+1
-                                if(count<=max):
+                                
+                                if(count<max):
                                     arr.append(sub4)
                                     j.classalloc=1
                                     j.save()
+                                    count=count+1
                                     break
-                                if count>max:
-                                    check=1
-                                    break
-                                    
+                               
+                if count>=max:
+                    check=1
+                                                
                 #sub5
                 cd=ClassDivisions.objects.all()
                 for j in cd:
@@ -648,16 +651,20 @@ class Finalview(generics.CreateAPIView):
                     if(cid==sub5):
                         calloc=j.classalloc
                         if int(calloc) ==0:
-                                count=count+1
-                                if(count<=max):
+                                
+                                if(count<max):
                                     arr.append(sub5)
                                     j.classalloc=1
                                     j.save()
+                                    count=count+1
                                     break
                                 if count>max:
                                     check=1
                                     break
                                     
+                if count>=max:
+                    check=1
+                            
                 #sub6
                 cd=ClassDivisions.objects.all()
                 for j in cd:
@@ -665,16 +672,19 @@ class Finalview(generics.CreateAPIView):
                     if(cid==sub6):
                         calloc=j.classalloc
                         if int(calloc) ==0:
-                                count=count+1
-                                if(count<=max):
+                                
+                                if(count<max):
                                     arr.append(sub6)
                                     j.classalloc=1
                                     j.save()
+                                    count=count+1
                                     break
                                 if count>max:
                                     check=1
                                     break
-                                    
+                if count>=max:
+                    check=1
+                                                
 
                 if len(arr)==1:
                     arr.insert(1," ")
