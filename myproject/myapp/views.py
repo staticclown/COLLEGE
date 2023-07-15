@@ -685,7 +685,7 @@ class Finalview(generics.CreateAPIView):
                     print(t.tid)
                 #teacherselection
                 
-                if len(arr)!=0:
+                if len(arr)!=0 and check==1:
                     no = random.randint(10000, 99999)
                     no = "S" + str(no)
                     print(arr)
@@ -701,7 +701,7 @@ class Finalview(generics.CreateAPIView):
                     new_entry =clash(clashid='OK')
                     new_entry.save()
 
-                elif len(arr)==0:
+                elif check==0:
                     i.no=0
                     i.status='UPDATE'
                     i.sub1=" "
