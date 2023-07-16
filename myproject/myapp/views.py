@@ -266,6 +266,7 @@ class phase1view(generics.ListCreateAPIView):
                     arrmail[j], arrmail[j + 1] = arrmail[j + 1], arrmail[j]
 
         count = count // 3
+        print(arrtid)
         for k in range(count):
             val = arrtid[k]
             no = random.randint(10000, 99999)
@@ -313,7 +314,7 @@ class phase2view(generics.ListCreateAPIView):
             val = current_year - int(i.year.strftime("%Y"))
             arrexp.append(val)
             arrmail.append(i.tmail)
-        count = len(arrexp) - 1
+        count = len(arrexp) 
         for i in range(count - 1):
             for j in range(count - i - 1):
                 if arrexp[j] < arrexp[j + 1]:
@@ -555,20 +556,8 @@ class Finalview(generics.CreateAPIView):
             clash.objects.all().delete()
             pno=phaseno.objects.all()
             pval=pno[0].active
-
-            
-            if Phase.objects.count()==0 and pval=='phase2':
-                cd=ClassDivisions.objects.all()
-                print("val")
-                for g in cd:
-                    if g.classalloc==1:
-                        g.classalloc=0
-                        g.save()
-                return HttpResponse("ok", status=status.HTTP_200_OK)
-
-
-
-
+            print()
+        
 
             for i in p1:
                 nosub=i.no
@@ -721,6 +710,7 @@ class Finalview(generics.CreateAPIView):
                 
                 if len(arr)!=0 and check==1:
                     no = random.randint(10000, 99999)
+                    print(t.tid)
                     no = "S" + str(no)
                     print(arr)
 
@@ -747,8 +737,20 @@ class Finalview(generics.CreateAPIView):
                     i.save()
                     new_entry =clash(clashid=t.tid)
                     new_entry.save()
+                    print('stop')
                     print(i.mail)
+                    break
+                    return HttpResponse("ok", status=status.HTTP_200_OK)
 
+            if pval=='phase2' and Phase.objects.count()==0:
+                cd=ClassDivisions.objects.all()
+                print("val")
+                for g in cd:
+                    if int(g.classalloc)==1:
+                        #print(g.tid)
+                        g.classalloc=0
+                        g.save()
+                return HttpResponse("ok", status=status.HTTP_200_OK)
 
             return HttpResponse("ok", status=status.HTTP_200_OK)
                 
