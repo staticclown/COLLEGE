@@ -34,7 +34,7 @@ class Finalserializer(serializers.ModelSerializer):
 class TeacherSelectionserializer(serializers.ModelSerializer):
     class Meta:
         model=TeacherSelection
-        fields=['tid','sub1','sub2','sub3','sub4','sub5','sub6','count','selectionid','year'] 
+        fields=['tid','sub1','sub2','count','selectionid','year'] 
 
 class  ClassDivisionsserializer(serializers.ModelSerializer):
      class Meta:

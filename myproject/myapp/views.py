@@ -237,7 +237,7 @@ class othersplitview(generics.CreateAPIView):
 class phase1view(generics.ListCreateAPIView):
     serializer_class = Phasenoserializer
     queryset = phaseno.objects.all()
-
+    
     def post(self, request, *args, **kwargs):
         requestbody = dict(request.data)
         Phase.objects.all().delete()
@@ -321,10 +321,9 @@ class phase2view(generics.ListCreateAPIView):
                     arrtid[j], arrtid[j + 1] = arrtid[j + 1], arrtid[j]
                     arrmail[j], arrmail[j + 1] = arrmail[j + 1], arrmail[j]
 
-        c = Phase.objects.all()
-
-        count = len(p) - len(c)
-        k = len(c) - 1
+    
+        count = len(p)-1
+        k = len(p)//3
         Phase.objects.all().delete()
         print(k, count)
         print(arrtid)
@@ -536,6 +535,15 @@ class Finalview(generics.CreateAPIView):
                 arrtid.append(t.tid)
                 new_entry =clash(clashid=t.tid)
                 new_entry.save()
+                # i.no=0
+                # i.status='UPDATE'
+                # i.sub1=" "
+                # i.sub2=" "
+                # i.sub3=" "
+                # i.sub4=" "
+                # i.sub5=" "
+                # i.sub6=" "
+                # i.save()
 
         print(arrtid)
 
@@ -545,7 +553,23 @@ class Finalview(generics.CreateAPIView):
         elif len(arrtid)==0:
             p1=Phase.objects.all()
             clash.objects.all().delete()
+            pno=phaseno.objects.all()
+            pval=pno[0].active
+
             
+            if Phase.objects.count()==0 and pval=='phase2':
+                cd=ClassDivisions.objects.all()
+                print("val")
+                for g in cd:
+                    if g.classalloc==1:
+                        g.classalloc=0
+                        g.save()
+                return HttpResponse("ok", status=status.HTTP_200_OK)
+
+
+
+
+
             for i in p1:
                 nosub=i.no
                 t=i.tid
@@ -706,7 +730,7 @@ class Finalview(generics.CreateAPIView):
                     count=nosub,
                     selectionid=no,
                     year=year)
-
+                    Phase.objects.filter(pid=i.pid).delete()
                     new_val.save()
                     new_entry =clash(clashid='OK')
                     new_entry.save()
@@ -720,6 +744,9 @@ class Finalview(generics.CreateAPIView):
                     i.sub4=" "
                     i.sub5=" "
                     i.sub6=" "
+                    i.save()
+                    new_entry =clash(clashid=t.tid)
+                    new_entry.save()
                     print(i.mail)
 
 
