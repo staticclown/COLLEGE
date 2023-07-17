@@ -16,7 +16,7 @@ from .models import (
     phaseget,
     Phaseteacher,
 )
-from .models import Department, phaseno, Phase,clash
+from .models import Department, phaseno, Phase,clash,resolve
 from .serializers import (
     Teacherserializer,
     Subjectserializer,
@@ -359,6 +359,250 @@ class phasestatusview(generics.ListCreateAPIView):
     queryset = phaseno.objects.all()
     serializer_class = Phasenoserializer
 
+#finalselection function
+
+def final_selectfun():
+        p=Phase.objects.all()
+        clash.objects.all().delete()
+        arrtid=[]
+        for i in p:
+            nosub=i.no
+            
+            t=i.tid
+            teacherobj=Teacher.objects.get(tid=t.tid)
+            pos=teacherobj.pos
+            #print(pos,t,nosub)
+
+            flag=0
+            if pos==2 or pos==1:
+                if nosub<1:
+                    flag=1
+            elif pos==0:
+                if nosub<2:
+                    flag=1
+
+            
+            if(flag==1):
+                arrtid.append(t.tid)
+                new_entry =clash(clashid=t.tid)
+                new_entry.save()
+               
+
+        print(arrtid)
+
+        if len(arrtid)!=0:
+            return HttpResponse(arrtid, status=status.HTTP_200_OK)
+
+        elif len(arrtid)==0:
+            p1=Phase.objects.all()
+            clash.objects.all().delete()
+            pno=phaseno.objects.all()
+            pval=pno[0].active
+            print()
+        
+
+            for i in p1:
+                nosub=i.no
+                t=i.tid
+                #print(t)
+                teacherobj=Teacher.objects.get(tid=t.tid)
+                pos=teacherobj.pos
+                if pos==2 or pos==1:
+                    max=1
+                elif pos==0:
+                    max=2
+                
+                count=0
+                check=0
+                sub1=i.sub1
+                sub2=i.sub2
+                sub3=i.sub3
+                sub4=i.sub4
+                sub5=i.sub5
+                sub6=i.sub6
+                pno=phaseno.objects.all()
+                year=pno[0].no
+                arr=[]
+                
+                #sub1
+                cd=ClassDivisions.objects.all()
+                for j in cd:
+                    cid=j.classid
+                    if(cid==sub1 and sub1!=""):
+                        calloc=j.classalloc
+                        #print("in",calloc)
+                        if int(calloc)==0:
+                                #print("in calloc")
+                                if(count<max):
+                                    #print("in count")
+                                    arr.append(sub1)
+                                    j.classalloc=1
+                                    j.save()
+                                    count=count+1
+                                    break
+                if count>=max:
+                    check=1
+                                    
+
+                #sub2
+                cd=ClassDivisions.objects.all()
+                for j in cd:
+                    cid=j.classid
+                    if(cid==sub2 and sub2!=""):
+                        calloc=j.classalloc
+                        if int(calloc) ==0:
+                                
+                                if(count<max):
+                                    arr.append(sub2)
+                                    j.classalloc=1
+                                    j.save()
+                                    count=count+1
+                                    break
+                if count>=max:
+                    check=1
+                            
+                #sub3
+                cd=ClassDivisions.objects.all()
+                for j in cd:
+                    cid=j.classid
+                    if(cid==sub3 and sub3!=""):
+                        #print("inside")
+                        calloc=j.classalloc
+                        if int(calloc) ==0:
+                                #print("in calloc3")
+                                if(count<max):
+                                    #print("in count3")
+                                    arr.append(sub3)
+                                    j.classalloc=1
+                                    j.save()
+                                    count=count+1
+                                    break
+                                
+                if count>=max:
+                    check=1
+                                                
+                #sub4
+                cd=ClassDivisions.objects.all()
+                for j in cd:
+                    cid=j.classid
+                    if(cid==sub4 and sub4!=""):
+                        calloc=j.classalloc
+                        if int(calloc) ==0:
+                                
+                                if(count<max):
+                                    arr.append(sub4)
+                                    j.classalloc=1
+                                    j.save()
+                                    count=count+1
+                                    break
+                               
+                if count>=max:
+                    check=1
+                                                
+                #sub5
+                cd=ClassDivisions.objects.all()
+                for j in cd:
+                    cid=j.classid
+                    if(cid==sub5 and sub5!=""):
+                        calloc=j.classalloc
+                        if int(calloc) ==0:
+                                
+                                if(count<max):
+                                    arr.append(sub5)
+                                    j.classalloc=1
+                                    j.save()
+                                    count=count+1
+                                    break
+                                if count>max:
+                                    check=1
+                                    break
+                                    
+                if count>=max:
+                    check=1
+                            
+                #sub6
+                cd=ClassDivisions.objects.all()
+                for j in cd:
+                    cid=j.classid
+                    if(cid==sub6 and sub6!=""):
+                        calloc=j.classalloc
+                        if int(calloc) ==0:
+                                
+                                if(count<max):
+                                    arr.append(sub6)
+                                    j.classalloc=1
+                                    j.save()
+                                    count=count+1
+                                    break
+                                if count>max:
+                                    check=1
+                                    break
+                if count>=max:
+                    check=1
+                                                
+
+                if len(arr)==1:
+                    arr.insert(1," ")
+                    nosub=1        
+                elif len(arr)==2:
+                    nosub=2
+                elif len(arr)==0:
+                    print(t.tid)
+                #teacherselection
+                
+                if len(arr)!=0 and check==1:
+                    no = random.randint(10000, 99999)
+                    print(t.tid)
+                    no = "S" + str(no)
+                    print(arr)
+
+                    new_val=TeacherSelection(tid=t,
+                    sub1=arr[0],
+                    sub2=arr[1],
+                    count=nosub,
+                    selectionid=no,
+                    year=year)
+                    Phase.objects.filter(pid=i.pid).delete()
+                    new_val.save()
+                    new_entry =clash(clashid='OK')
+                    new_entry.save()
+
+                elif check==0:
+                    i.no=0
+                    i.status='UPDATE'
+                    i.sub1=""
+                    i.sub2=""
+                    i.sub3=""
+                    i.sub4=""
+                    i.sub5=""
+                    i.sub6=""
+                    i.save()
+                    new_entry =clash(clashid=t.tid)
+                    new_entry.save()
+                    new_entry =resolve.objects.get(rid=0)
+                    new_entry.rid=1
+                    new_entry.save()
+                    print('stop')
+                    print(i.mail)
+                    break
+                    return HttpResponse("ok", status=status.HTTP_200_OK)
+
+            if pval=='phase2' and Phase.objects.count()==0:
+                cd=ClassDivisions.objects.all()
+                print("val")
+                for g in cd:
+                    if int(g.classalloc)==1:
+                        #print(g.tid)
+                        g.classalloc=0
+                        g.save()
+                return HttpResponse("ok", status=status.HTTP_200_OK)
+
+            return HttpResponse("ok", status=status.HTTP_200_OK)
+
+
+
+    
+
 
 class subselect(generics.ListCreateAPIView):
     queryset = Phase.objects.all()
@@ -374,7 +618,6 @@ class subselect(generics.ListCreateAPIView):
         sub4 = requestbody["sub4"]
         sub5 = requestbody["sub5"]
         sub6 = requestbody["sub6"]
-
         teacherid = Teacher.objects.get(tid=tid)
         current_year = date.today().year
         exp = current_year - int(teacherid.year.strftime("%Y"))
@@ -503,6 +746,15 @@ class subselect(generics.ListCreateAPIView):
         phaseid.mail = teacherid.tmail
         phaseid.status = "OFF"
         phaseid.save()
+        try:
+            new_entry =resolve.objects.get(rid=1)
+            if new_entry.rid==1:
+                new_entry.rid=0
+                new_entry.save()
+                final_selectfun()
+        except:
+            print("ok")
+        
 
         return HttpResponse("OK", status=status.HTTP_200_OK)
 
@@ -512,247 +764,7 @@ class Finalview(generics.CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         requestbody = dict(request.data)
-        p=Phase.objects.all()
-        clash.objects.all().delete()
-        arrtid=[]
-        for i in p:
-            nosub=i.no
-            
-            t=i.tid
-            teacherobj=Teacher.objects.get(tid=t.tid)
-            pos=teacherobj.pos
-            #print(pos,t,nosub)
-
-            flag=0
-            if pos==2 or pos==1:
-                if nosub<1:
-                    flag=1
-            elif pos==0:
-                if nosub<2:
-                    flag=1
-
-            
-            if(flag==1):
-                arrtid.append(t.tid)
-                new_entry =clash(clashid=t.tid)
-                new_entry.save()
-                # i.no=0
-                # i.status='UPDATE'
-                # i.sub1=" "
-                # i.sub2=" "
-                # i.sub3=" "
-                # i.sub4=" "
-                # i.sub5=" "
-                # i.sub6=" "
-                # i.save()
-
-        print(arrtid)
-
-        if len(arrtid)!=0:
-            return HttpResponse(arrtid, status=status.HTTP_200_OK)
-
-        elif len(arrtid)==0:
-            p1=Phase.objects.all()
-            clash.objects.all().delete()
-            pno=phaseno.objects.all()
-            pval=pno[0].active
-            print()
-        
-
-            for i in p1:
-                nosub=i.no
-                t=i.tid
-                #print(t)
-                teacherobj=Teacher.objects.get(tid=t.tid)
-                pos=teacherobj.pos
-                if pos==2 or pos==1:
-                    max=1
-                elif pos==0:
-                    max=2
-                
-                count=0
-                check=0
-                sub1=i.sub1
-                sub2=i.sub2
-                sub3=i.sub3
-                sub4=i.sub4
-                sub5=i.sub5
-                sub6=i.sub6
-                pno=phaseno.objects.all()
-                year=pno[0].no
-                arr=[]
-                
-                #sub1
-                cd=ClassDivisions.objects.all()
-                for j in cd:
-                    cid=j.classid
-                    if(cid==sub1):
-                        calloc=j.classalloc
-                        print("in",calloc)
-                        if int(calloc)==0:
-                                print("in calloc")
-                                if(count<max):
-                                    print("in count")
-                                    arr.append(sub1)
-                                    j.classalloc=1
-                                    j.save()
-                                    count=count+1
-                                    break
-                if count>=max:
-                    check=1
-                                    
-
-                #sub2
-                cd=ClassDivisions.objects.all()
-                for j in cd:
-                    cid=j.classid
-                    if(cid==sub2 ):
-                        calloc=j.classalloc
-                        if int(calloc) ==0:
-                                
-                                if(count<max):
-                                    arr.append(sub2)
-                                    j.classalloc=1
-                                    j.save()
-                                    count=count+1
-                                    break
-                if count>=max:
-                    check=1
-                            
-                #sub3
-                cd=ClassDivisions.objects.all()
-                for j in cd:
-                    cid=j.classid
-                    if(cid==sub3):
-                        calloc=j.classalloc
-                        if int(calloc) ==0:
-                                
-                                print("in calloc3")
-                                if(count<max):
-                                    print("in count3")
-                                    arr.append(sub3)
-                                    j.classalloc=1
-                                    j.save()
-                                    count=count+1
-                                    break
-                                
-                if count>=max:
-                    check=1
-                                                
-                #sub4
-                cd=ClassDivisions.objects.all()
-                for j in cd:
-                    cid=j.classid
-                    if(cid==sub4):
-                        calloc=j.classalloc
-                        if int(calloc) ==0:
-                                
-                                if(count<max):
-                                    arr.append(sub4)
-                                    j.classalloc=1
-                                    j.save()
-                                    count=count+1
-                                    break
-                               
-                if count>=max:
-                    check=1
-                                                
-                #sub5
-                cd=ClassDivisions.objects.all()
-                for j in cd:
-                    cid=j.classid
-                    if(cid==sub5):
-                        calloc=j.classalloc
-                        if int(calloc) ==0:
-                                
-                                if(count<max):
-                                    arr.append(sub5)
-                                    j.classalloc=1
-                                    j.save()
-                                    count=count+1
-                                    break
-                                if count>max:
-                                    check=1
-                                    break
-                                    
-                if count>=max:
-                    check=1
-                            
-                #sub6
-                cd=ClassDivisions.objects.all()
-                for j in cd:
-                    cid=j.classid
-                    if(cid==sub6):
-                        calloc=j.classalloc
-                        if int(calloc) ==0:
-                                
-                                if(count<max):
-                                    arr.append(sub6)
-                                    j.classalloc=1
-                                    j.save()
-                                    count=count+1
-                                    break
-                                if count>max:
-                                    check=1
-                                    break
-                if count>=max:
-                    check=1
-                                                
-
-                if len(arr)==1:
-                    arr.insert(1," ")
-                    nosub=1        
-                elif len(arr)==2:
-                    nosub=2
-                elif len(arr)==0:
-                    print(t.tid)
-                #teacherselection
-                
-                if len(arr)!=0 and check==1:
-                    no = random.randint(10000, 99999)
-                    print(t.tid)
-                    no = "S" + str(no)
-                    print(arr)
-
-                    new_val=TeacherSelection(tid=t,
-                    sub1=arr[0],
-                    sub2=arr[1],
-                    count=nosub,
-                    selectionid=no,
-                    year=year)
-                    Phase.objects.filter(pid=i.pid).delete()
-                    new_val.save()
-                    new_entry =clash(clashid='OK')
-                    new_entry.save()
-
-                elif check==0:
-                    i.no=0
-                    i.status='UPDATE'
-                    i.sub1=" "
-                    i.sub2=" "
-                    i.sub3=" "
-                    i.sub4=" "
-                    i.sub5=" "
-                    i.sub6=" "
-                    i.save()
-                    new_entry =clash(clashid=t.tid)
-                    new_entry.save()
-                    print('stop')
-                    print(i.mail)
-                    break
-                    return HttpResponse("ok", status=status.HTTP_200_OK)
-
-            if pval=='phase2' and Phase.objects.count()==0:
-                cd=ClassDivisions.objects.all()
-                print("val")
-                for g in cd:
-                    if int(g.classalloc)==1:
-                        #print(g.tid)
-                        g.classalloc=0
-                        g.save()
-                return HttpResponse("ok", status=status.HTTP_200_OK)
-
-            return HttpResponse("ok", status=status.HTTP_200_OK)
+        return final_selectfun()
                 
 
 

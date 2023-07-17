@@ -112,3 +112,6 @@ class Phaseteacher(models.Model):
     
 class phaseget(models.Model):
     val=models.CharField(max_length=20)
+
+class resolve(models.Model):
+    rid=models.IntegerField()
