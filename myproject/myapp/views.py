@@ -554,7 +554,7 @@ def final_selectfun():
                     no = random.randint(10000, 99999)
                     print(t.tid)
                     no = "S" + str(no)
-                    print(arr)
+                    #print(arr)
 
                     new_val=TeacherSelection(tid=t,
                     sub1=arr[0],
@@ -582,14 +582,14 @@ def final_selectfun():
                     new_entry =resolve.objects.get(rid=0)
                     new_entry.rid=1
                     new_entry.save()
-                    print('stop')
+                    #print('stop')
                     print(i.mail)
                     break
                     return HttpResponse("ok", status=status.HTTP_200_OK)
 
             if pval=='phase2' and Phase.objects.count()==0:
                 cd=ClassDivisions.objects.all()
-                print("val")
+                #print("val")
                 for g in cd:
                     if int(g.classalloc)==1:
                         #print(g.tid)
@@ -657,7 +657,7 @@ class subselect(generics.ListCreateAPIView):
                 d['sub6']=i.sub6
                 subarray.append(d)
         
-        print(subarray)
+        #print(subarray)
 
         def fun_order(sub,i):
         
@@ -815,7 +815,7 @@ class phasegetview(generics.CreateAPIView):
             while k<12:
                 arr.insert(k," ")
                 k=k+1
-            print(teachername)
+            #print(teachername)
             k=0
             cd=ClassDivisions.objects.all()
 
